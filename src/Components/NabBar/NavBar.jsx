@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 import logo from "../../assets/logo.png";
 import useAuth from '../../Hooks/useAuth';
+import defaultUser from "../../assets/profile.png"
 
 
 function ResponsiveAppBar() {
@@ -88,20 +89,23 @@ function ResponsiveAppBar() {
                     Dashboard
                 </NavLink>
             </Button>
-            <Button
-                className='md:w-auto w-full text-left'
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: color, display: 'block' }}
-            >
-                <NavLink
-                    to={"/login"}
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
-                    }
-                >
-                    Login
-                </NavLink>
-            </Button>
+            {
+                user ? "" :
+                    <Button
+                        className='md:w-auto w-full text-left'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: color, display: 'block' }}
+                    >
+                        <NavLink
+                            to={"/login"}
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
+                            }
+                        >
+                            Login
+                        </NavLink>
+                    </Button>
+            }
         </>
     }
 
@@ -189,7 +193,7 @@ function ResponsiveAppBar() {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                    <Avatar alt="Remy Sharp" src={user?.photoURL ? user?.photoURL : defaultUser} />
                                 </IconButton>
                             </Tooltip>
                             <Menu

@@ -17,8 +17,16 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import axios from "axios";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+    const {createUser} = useAuth();
+    const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY;
+    const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
     const {
         register,
         handleSubmit,
@@ -45,14 +53,37 @@ const Register = () => {
         event.preventDefault();
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        const creatingUserId = toast.loading("Creating user...");
+
         const userInfo = {
             name: data.name,
             email: data.email,
-            password: data.password
+            password: data.password,
+            role: "user"
         }
 
-        console.log(userInfo)
+        const imageFile = {image: data?.image[0]};
+
+        const res = await axios.post(image_hosting_api, imageFile,{
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
+        const imageUrl = res?.data?.data?.display_url;
+
+        createUser(data.email, data.password)
+        .then((res) => {
+            updateProfile(res.user, {
+                displayName: data.name,
+                photoURL: imageUrl
+            }).then(() => {
+                toast.success("Registration successful!", {id: creatingUserId});
+            }).catch((err) => toast.error(err.message, {id: creatingUserId}));
+        })
+        .catch(err => toast.error(err.message, {id: creatingUserId}));
+
     }
 
     return (
