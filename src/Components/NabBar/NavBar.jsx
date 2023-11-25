@@ -22,7 +22,8 @@ import toast from 'react-hot-toast';
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { user, logOut, setUser } = useAuth();
+    const { user, logOut, setUser, userRole } = useAuth();
+    const [dashboardLink, setDashboardLink] = React.useState("*");
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -44,16 +45,28 @@ function ResponsiveAppBar() {
         handleCloseUserMenu();
 
         logOut()
-        .then(() => {
-            axiosPublic.post("/logout", {email : user?.email})
             .then(() => {
-                setUser(null);
-                toast.success("Logout successful!");
+                axiosPublic.post("/logout", { email: user?.email })
+                    .then(() => {
+                        setUser(null);
+                        toast.success("Logout successful!");
+                    })
+                    .catch((err) => console.log(err.message))
             })
-            .catch((err) => console.log(err.message))
-        })
 
     }
+
+
+
+    React.useEffect(() => {
+        if (userRole === "admin") {
+            setDashboardLink("/admin-dashboard");
+        } else if (userRole === "agent") {
+            setDashboardLink("/agent-dashboard");
+        } else if (userRole === "user") {
+            setDashboardLink("/user-dashboard");
+        }
+    }, [userRole, user]);
 
 
     const navBar = (color, className, btnWidth) => {
@@ -85,22 +98,24 @@ function ResponsiveAppBar() {
                     All Properties
                 </NavLink>
             </Button>
-            <Button
-                className='md:w-auto w-full text-left'
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
-            >
-                <NavLink
-                    to={"/admin-dashboard"}
-                    className={({ isActive, isPending }) =>
-                        isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            </Button>
+
             {
-                user ? "" :
+                user ?
+                    <Button
+                        className='md:w-auto w-full text-left'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
+                    >
+                        <NavLink
+                            to={dashboardLink}
+                            className={({ isActive, isPending }) =>
+                                isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
+                            }
+                        >
+                            Dashboard
+                        </NavLink>
+                    </Button>
+                    :
                     <Button
                         className='md:w-auto w-full text-left'
                         onClick={handleCloseNavMenu}
@@ -172,7 +187,7 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {navBar("black","w-full block", "100%")}
+                            {navBar("black", "w-full block", "100%")}
                         </Menu>
                     </Box>
                     <img src={logo} className='md:hidden block w-10 mr-2 py-3' />

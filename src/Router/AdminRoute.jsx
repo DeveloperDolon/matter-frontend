@@ -11,7 +11,7 @@ const AdminRoute = ({children}) => {
     }
 
     if(loading) {
-        return <Box sx={{ display: 'flex' }}>
+        return <Box sx={{ display: 'flex', height: "100vh", width: "100%", justifyContent: "center", alignItems: "center" }}>
         <CircularProgress />
       </Box>
     }

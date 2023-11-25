@@ -7,7 +7,7 @@ import { axiosPublic } from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -38,29 +38,30 @@ const AuthProvider = ({children}) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if(currentUser) {
+            if (currentUser) {
                 console.log(currentUser)
-                setUser(currentUser); 
+                setUser(currentUser);
 
-                axiosPublic.post("/jwt", {user: currentUser?.email})
-                .then(res => console.log(res.data))
-                .catch(err => console.log(err))
+                axiosPublic.post("/jwt", { user: currentUser?.email })
+                    .then(res => {
+                        console.log(res.data)
+                        axiosPublic.get(`/user?email=${currentUser?.email}`)
+                            .then(res => {
+                                if (res.data.role === "admin") {
+                                    setUserRole("admin");
+                                    setLoading(false);
+                                } else if (res.data.role === "agent") {
+                                    setUserRole("agent");
+                                    setLoading(false);
+                                } else if (res.data.role === "user") {
+                                    setUserRole("user");
+                                    setLoading(false);
+                                }
+                            })
+                            .catch(err => console.log(err));
+                    })
+                    .catch(err => console.log(err))
 
-                axiosPublic.get(`/user?email=${currentUser?.email}`)
-                .then(res => { 
-                    if(res.data.role === "admin") {
-                        setUserRole("admin");
-                        console.log("access granted");
-                        setLoading(false);
-                    } else if(res.data.role === "agent") {
-                        setUserRole("agent");
-                        setLoading(false);
-                    }else if(res.data.role === "user") {
-                        setUserRole("user");
-                        setLoading(false);
-                    }
-                })
-                .catch(err => console.log(err));
             }
             else {
                 setLoading(false);
@@ -69,7 +70,7 @@ const AuthProvider = ({children}) => {
 
         return () => {
             unsubscribe();
-        } 
+        }
     }, []);
 
     const authData = {
