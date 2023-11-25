@@ -11,6 +11,7 @@ import AdminDashboard from "../Pages/Admin/AdminDashboard/AdminDashboard";
 import AgentRoute from "./AgentRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserDashboard from "../Pages/User/UserDashboard/UserDashboard";
+import UserProfile from "../Pages/User/UserProfile/UserProfile";
 
 
 
@@ -40,7 +41,7 @@ const MainRouter = createBrowserRouter([
         children: [
             {
                 path: "/user-dashboard/",
-                element: <PrivateRoute></PrivateRoute>
+                element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>
             }
         ]
     },

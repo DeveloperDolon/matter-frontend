@@ -1,5 +1,4 @@
 
-
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -18,7 +17,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import UserMenus, { DefaultMenu } from './UserMenus';
 
 
@@ -91,6 +90,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 function UserDashboard() {
     const theme = useTheme();
+    const [btnActive, setBtnActive] = React.useState(null);
+
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -118,7 +119,7 @@ function UserDashboard() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h3" noWrap component="div">
+                    <Typography variant="h4" noWrap component="div">
                         User Dashboard
                     </Typography>
                 </Toolbar>
@@ -131,8 +132,17 @@ function UserDashboard() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {UserMenus?.map((item, idx) => (
-                        <NavLink to={item?.link} key={idx}>
+                    {UserMenus?.map((item, idx) => { 
+
+                    return(
+                        <NavLink
+                            className={({ isActive, isPending }) =>{
+                                if(isActive) {
+                                    setBtnActive(idx);
+                                }
+                                return isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 text-blue-500 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
+                            }}
+                            to={item?.link} key={idx}>
                             <ListItem key={item?.text} disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
                                     sx={{
@@ -146,6 +156,7 @@ function UserDashboard() {
                                             minWidth: 0,
                                             mr: open ? 3 : 'auto',
                                             justifyContent: 'center',
+                                            color: btnActive === idx ? "blue" : ""
                                         }}
                                     >
                                         {item?.icon}
@@ -154,7 +165,7 @@ function UserDashboard() {
                                 </ListItemButton>
                             </ListItem>
                         </NavLink>
-                    ))}
+                    )})}
                 </List>
                 <Divider />
                 <List>
@@ -184,9 +195,9 @@ function UserDashboard() {
                     ))}
                 </List>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, }}>
                 <DrawerHeader />
-                hello wold
+                <Outlet></Outlet>
             </Box>
         </Box>
     );

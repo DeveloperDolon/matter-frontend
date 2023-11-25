@@ -11,7 +11,7 @@ const UserMenus = [
     {
         icon: <AccountCircleIcon></AccountCircleIcon>,
         text: "My Profile",
-        link: "/user-dashboard/profile"
+        link: "/user-dashboard/"
     },
     {
         icon: <FavoriteIcon></FavoriteIcon>,

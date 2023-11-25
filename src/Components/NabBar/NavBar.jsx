@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
-import logo from "../../assets/logo.png";
+import logo from "../../assets/alt-logo.png";
 import useAuth from '../../Hooks/useAuth';
 import defaultUser from "../../assets/profile.png"
 import { axiosPublic } from '../../Hooks/useAxiosPublic';
@@ -61,11 +61,11 @@ function ResponsiveAppBar() {
 
     React.useEffect(() => {
         if (userRole === "admin") {
-            setDashboardLink("/admin-dashboard");
+            setDashboardLink("/admin-dashboard/");
         } else if (userRole === "agent") {
-            setDashboardLink("/agent-dashboard");
+            setDashboardLink("/agent-dashboard/");
         } else if (userRole === "user") {
-            setDashboardLink("/user-dashboard");
+            setDashboardLink("/user-dashboard/");
         }
     }, [userRole, user]);
 
@@ -136,10 +136,10 @@ function ResponsiveAppBar() {
     }
 
     return (
-        <AppBar position="static" sx={{ background: "#121414" }} className='w-full'>
-            <Container maxWidth="xl" className='bg-[#121414]'>
+        <AppBar position="static" className='w-full'>
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <img src={logo} className='md:w-16 md:block hidden w-5 mr-2 py-3' />
+                    <img src={logo} className='md:w-16 md:block hidden w-5 mr-2 py-3 rounded-full' />
                     <Typography
                         variant="h6"
                         noWrap
@@ -191,7 +191,7 @@ function ResponsiveAppBar() {
                             {navBar("black", "w-full block", "100%")}
                         </Menu>
                     </Box>
-                    <img src={logo} className='md:hidden block w-10 mr-2 py-3' />
+                    <img src={logo} className='md:hidden rounded-full block w-10 mr-2 py-3' />
                     <Typography
                         variant="h5"
                         noWrap
