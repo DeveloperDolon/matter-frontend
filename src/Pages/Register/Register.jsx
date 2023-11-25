@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from "react";
 import SocialLogin from "../../Components/SocialBtn/SocialLogin";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
@@ -21,11 +21,14 @@ import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
+import { axiosPublic } from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
     const {createUser} = useAuth();
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const {
         register,
@@ -56,13 +59,6 @@ const Register = () => {
     const onSubmit = async (data) => {
         const creatingUserId = toast.loading("Creating user...");
 
-        const userInfo = {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            role: "user"
-        }
-
         const imageFile = {image: data?.image[0]};
 
         const res = await axios.post(image_hosting_api, imageFile,{
@@ -73,13 +69,27 @@ const Register = () => {
 
         const imageUrl = res?.data?.data?.display_url;
 
+        const userInfo = {
+            name: data.name,
+            email: data.email,
+            image: imageUrl,
+            role: "user"
+        }
+
         createUser(data.email, data.password)
         .then((res) => {
             updateProfile(res.user, {
                 displayName: data.name,
                 photoURL: imageUrl
             }).then(() => {
-                toast.success("Registration successful!", {id: creatingUserId});
+
+                axiosPublic.post("/users", {...userInfo})
+                .then(res => {
+                    toast.success("Registration successful!", {id: creatingUserId});
+                    console.log(res);
+                    navigate(location.state || "/");
+                }).catch(err => console.log(err));
+
             }).catch((err) => toast.error(err.message, {id: creatingUserId}));
         })
         .catch(err => toast.error(err.message, {id: creatingUserId}));

@@ -14,9 +14,17 @@ import { useState } from "react";
 import "./style.css";
 import SocialLogin from "../../Components/SocialBtn/SocialLogin";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
+
+    const {emailSignIn} = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+
     const {
         register,
         handleSubmit,
@@ -32,7 +40,15 @@ const Login = () => {
     };
 
     const onSubmit = (data) => {
-        console.log(data);
+        const signInId = toast.loading("Finding user...");
+
+        emailSignIn(data.email, data.password)
+        .then(() => {
+            toast.success("User Logged In Success!", {id: signInId});
+            navigate(location.state || "/");
+        }).catch(err => {
+            toast.error(err.message, {id: signInId});
+        })
     }
 
     return (

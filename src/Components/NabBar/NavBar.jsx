@@ -15,16 +15,19 @@ import { NavLink } from 'react-router-dom';
 import logo from "../../assets/logo.png";
 import useAuth from '../../Hooks/useAuth';
 import defaultUser from "../../assets/profile.png"
+import { axiosPublic } from '../../Hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
 
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { user } = useAuth();
+    const { user, logOut, setUser } = useAuth();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -37,21 +40,28 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const userOption = <>
-        <MenuItem key={"logout"} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center"></Typography>
-        </MenuItem>
-        <MenuItem key={"logout"} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">Logout</Typography>
-        </MenuItem>
-    </>
+    const handleLogOut = () => {
+        handleCloseUserMenu();
 
-    const navBar = (color) => {
-        return <>
+        logOut()
+        .then(() => {
+            axiosPublic.post("/logout", {email : user?.email})
+            .then(() => {
+                setUser(null);
+                toast.success("Logout successful!");
+            })
+            .catch((err) => console.log(err.message))
+        })
+
+    }
+
+
+    const navBar = (color, className, btnWidth) => {
+        return <span className={className}>
             <Button
                 className='md:w-auto w-full text-left'
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: color, display: 'block' }}
+                sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
             >
                 <NavLink to={"/"}
                     className={({ isActive, isPending }) =>
@@ -64,7 +74,7 @@ function ResponsiveAppBar() {
             <Button
                 className='md:w-auto w-full text-left'
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: color, display: 'block' }}
+                sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
             >
                 <NavLink
                     to={"/all-properties"}
@@ -78,10 +88,10 @@ function ResponsiveAppBar() {
             <Button
                 className='md:w-auto w-full text-left'
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: color, display: 'block' }}
+                sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
             >
                 <NavLink
-                    to={"/dashboard"}
+                    to={"/admin-dashboard"}
                     className={({ isActive, isPending }) =>
                         isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
                     }
@@ -94,7 +104,7 @@ function ResponsiveAppBar() {
                     <Button
                         className='md:w-auto w-full text-left'
                         onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: color, display: 'block' }}
+                        sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
                     >
                         <NavLink
                             to={"/login"}
@@ -106,7 +116,7 @@ function ResponsiveAppBar() {
                         </NavLink>
                     </Button>
             }
-        </>
+        </span>
     }
 
     return (
@@ -162,7 +172,7 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {navBar("black")}
+                            {navBar("black","w-full block", "100%")}
                         </Menu>
                     </Box>
                     <img src={logo} className='md:hidden block w-10 mr-2 py-3' />
@@ -185,7 +195,7 @@ function ResponsiveAppBar() {
                         MATTER
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', color: "black" } }}>
-                        {navBar("white")}
+                        {navBar("white", "flex w-fit")}
                     </Box>
 
                     {
@@ -193,7 +203,10 @@ function ResponsiveAppBar() {
                         <Box sx={{ flexGrow: 0 }}>
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src={user?.photoURL ? user?.photoURL : defaultUser} />
+                                    {
+                                        user?.photoURL ? <Avatar alt="Remy Sharp" src={user?.photoURL ? user?.photoURL : defaultUser} /> :
+                                            <img src={defaultUser} alt="" />
+                                    }
                                 </IconButton>
                             </Tooltip>
                             <Menu
@@ -212,7 +225,16 @@ function ResponsiveAppBar() {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {userOption}
+                                {user ?
+                                    <div>
+                                        <MenuItem key={"name"}>
+                                            <Typography textAlign="center">{user?.displayName}</Typography>
+                                        </MenuItem>
+                                        <MenuItem key={"logout"} onClick={handleLogOut}>
+                                            <Typography textAlign="center">Logout</Typography>
+                                        </MenuItem>
+                                    </div>
+                                    : ""}
                             </Menu>
                         </Box>
                     }
