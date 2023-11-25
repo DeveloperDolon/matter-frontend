@@ -50,6 +50,7 @@ function ResponsiveAppBar() {
                     .then(() => {
                         setUser(null);
                         toast.success("Logout successful!");
+                        window.location.reload();
                     })
                     .catch((err) => console.log(err.message))
             })

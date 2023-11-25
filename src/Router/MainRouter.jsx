@@ -8,6 +8,9 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import AdminRoute from "./AdminRoute";
 import AdminDashboard from "../Pages/Admin/AdminDashboard/AdminDashboard";
+import AgentRoute from "./AgentRoute";
+import PrivateRoute from "./PrivateRoute";
+import UserDashboard from "../Pages/User/UserDashboard/UserDashboard";
 
 
 
@@ -21,9 +24,23 @@ const MainRouter = createBrowserRouter([
                 path: "/",
                 element: <HomePage></HomePage>
             },
+        ]
+    },
+    {
+        path: "/admin-dashboard",
+        element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+    },
+    {
+        path: "/agent-dashboard",
+        element: <AgentRoute><h1>Hello world!</h1></AgentRoute>
+    },
+    {
+        path: "/user-dashboard",
+        element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
+        children: [
             {
-                path: "/admin-dashboard",
-                element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+                path: "/user-dashboard/",
+                element: <PrivateRoute></PrivateRoute>
             }
         ]
     },
