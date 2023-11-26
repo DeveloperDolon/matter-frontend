@@ -8,10 +8,11 @@ const useAccessPropertyReviews = (id) => {
    const axiosSecure = useAxiosSecure();
    
     return useQuery({
-        queryKey: ["access-property-review", user],
+        queryKey: ["access-property-review"],
         queryFn: async () => {
             const rawData = await axiosSecure.get(`/property-reviews/${id}?email=${user?.email}`);
             const response = rawData.data;
+        
             return response;
         }
 

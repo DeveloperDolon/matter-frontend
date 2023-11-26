@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { FaStar } from "react-icons/fa";
 import useAuth from '../../Hooks/useAuth';
 import PropTypes from "prop-types";
-import useAccessPropertyReviews from '../../Hooks/useAccessPropertyReviews';
 import useReviewMutation from '../../Hooks/useReviewMutation';
 
 const colors = {
@@ -20,7 +19,6 @@ const ReviewForm = ({id, title, agentName}) => {
     const [hoverValue, setHoverValue] = useState(undefined);
     const stars = Array(5).fill(0);
     const {user} = useAuth();
-    const {refetch} = useAccessPropertyReviews();
 
     const handleClick = value => {
         setCurrentValue(value);
@@ -34,7 +32,7 @@ const ReviewForm = ({id, title, agentName}) => {
         setHoverValue(undefined);
     }
 
-    const {mutate: addReview} = useReviewMutation();
+    const {mutate: addReview} = useReviewMutation(id);
 
 
     const handleAddReview = (e) => {
@@ -54,7 +52,6 @@ const ReviewForm = ({id, title, agentName}) => {
         }
 
         addReview(reviewData);
-        refetch();
     }
 
     return (

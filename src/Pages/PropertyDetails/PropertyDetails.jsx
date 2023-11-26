@@ -13,11 +13,28 @@ import useAccessPropertyReviews from "../../Hooks/useAccessPropertyReviews";
 import animationData from "../../../public/Animation - 1699287520981.json";
 import Lottie from "lottie-react";
 import ReviewForm from "./ReviewForm";
+import Review from "./Review";
+import useAuth from "../../Hooks/useAuth";
+import * as React from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 const PropertyDetails = () => {
+    const { user } = useAuth();
     const data = useLoaderData();
+    const [open, setOpen] = React.useState(false);
+    const { data: reviews } = useAccessPropertyReviews(data?._id);
 
     const defaultOptions = {
         loop: true,
@@ -28,10 +45,33 @@ const PropertyDetails = () => {
         }
     };
 
-    const { data: reviews } = useAccessPropertyReviews(data?._id);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleAddToWishlist = () => {
+
+        setOpen(false);
+
+        const wishListData = {
+            property_id: data._id,
+            buyer_email: user?.email,
+            buyer_name: user?.displayName,
+        }
+
+        console.log(wishListData);
+    }
+
+
 
     return (
         <Container maxWidth="lg" className="mx-auto md:mb-32 mb-28">
+
+
             <div className="max-w-7xl mx-auto mt-16 w-full grid md:grid-cols-12 grid-cols-1 gap-5">
                 <div className="md:col-span-9">
                     <h1 className="md:text-4xl text-2xl title-text font-bold">{data?.property_title}</h1>
@@ -124,19 +164,45 @@ const PropertyDetails = () => {
                     <div>
                         <h4 className="md:mt-7 mt-5 md:text-2xl text-lg font-bold border-2 border-cyan-400 rounded-full py-2 px-5 w-fit md:mb-8 mb-4">Price Range : {data?.price_range} TK</h4>
 
-                        <Button variant="contained" size="large">
-                            Add To Wishlist
-                            <Favorite className="ml-2"></Favorite>
-                        </Button>
+
+                        {/* modal is from here */}
+                        <React.Fragment>
+                            <Button variant="contained" size="large" onClick={handleClickOpen}>
+                                Add To Wishlist
+                                <Favorite className="ml-2"></Favorite>
+                            </Button>
+                            <Dialog
+                                open={open}
+                                TransitionComponent={Transition}
+                                keepMounted
+                                onClose={handleClose}
+                                aria-describedby="alert-dialog-slide-description"
+                            >
+                                <DialogTitle>{"Are you sure? Want to add wishlist!"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-slide-description">
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Disagree</Button>
+                                    <Button onClick={handleAddToWishlist}>Agree</Button>
+                                </DialogActions>
+                            </Dialog>
+                        </React.Fragment>
+                        {/* modal is end from here */}
                     </div>
 
-                    <div className="mt-16">
-                        <h1 className="md:text-4xl text-3xl font-bold">Latest Customer Reviews</h1>
+                    <div className="pt-8 mt-8 border-t-2">
+                        <h1 className="md:text-4xl text-center text-3xl font-bold">Latest Customer Reviews</h1>
 
-                        <div>
+                        <div className="md:mt-10 mt-6">
                             {
                                 reviews?.length > 0 ?
-                                    ""
+                                    <div>
+                                        {
+                                            reviews?.map(item => <Review key={item._id} data={item}></Review>)
+                                        }
+                                    </div>
                                     :
                                     <div>
                                         <Lottie
@@ -153,9 +219,9 @@ const PropertyDetails = () => {
 
 
                         <div>
-                           <ReviewForm id={data?._id} title={data?.property_title}
-                           agentName={data?.agent_name}
-                           ></ReviewForm>
+                            <ReviewForm id={data?._id} title={data?.property_title}
+                                agentName={data?.agent_name}
+                            ></ReviewForm>
                         </div>
 
                     </div>
