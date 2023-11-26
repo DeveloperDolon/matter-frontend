@@ -35,7 +35,7 @@ const AdvertisementProperty = () => {
 
             <div className="grid md:grid-cols-2 grid-cols-1 gap-10 mt-20">
                 {
-                    data?.map(item => <PropertyCard key={item._id} data={item}></PropertyCard>)
+                    data.slice(0, 4)?.map(item => <PropertyCard key={item._id} data={item}></PropertyCard>)
                 }
             </div>
 

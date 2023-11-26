@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import UserDashboard from "../Pages/User/UserDashboard/UserDashboard";
 import UserProfile from "../Pages/User/UserProfile/UserProfile";
 import UserWishlist from "../Pages/User/UserWishlist/UserWishlist";
+import AllProperties from "../Pages/AllPropertiesPage/AllProperties";
 
 
 const MainRouter = createBrowserRouter([
@@ -23,6 +24,14 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/",
                 element: <HomePage></HomePage>
+            },
+            {
+                path: "/properties",
+                element: <PrivateRoute><AllProperties></AllProperties></PrivateRoute>
+            },
+            {
+                path: "/properties/:id",
+                element: <PrivateRoute><h1>hello world from details page</h1></PrivateRoute>
             },
         ]
     },
