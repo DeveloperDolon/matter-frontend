@@ -9,12 +9,26 @@ import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import MarginIcon from '@mui/icons-material/Margin';
 import GarageIcon from '@mui/icons-material/Garage';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import useAccessPropertyReviews from "../../Hooks/useAccessPropertyReviews";
+import animationData from "../../../public/Animation - 1699287520981.json";
+import Lottie from "lottie-react";
+import ReviewForm from "./ReviewForm";
 
 
 
 const PropertyDetails = () => {
     const data = useLoaderData();
-    console.log(data)
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
+
+    const { data: reviews } = useAccessPropertyReviews(data?._id);
 
     return (
         <Container maxWidth="lg" className="mx-auto md:mb-32 mb-28">
@@ -117,7 +131,31 @@ const PropertyDetails = () => {
                     </div>
 
                     <div className="mt-16">
-                        <h1 className="md:text-4xl text-3xl font-bold">Customer Reviews</h1>
+                        <h1 className="md:text-4xl text-3xl font-bold">Latest Customer Reviews</h1>
+
+                        <div>
+                            {
+                                reviews?.length > 0 ?
+                                    ""
+                                    :
+                                    <div>
+                                        <Lottie
+                                            className="md:w-[30%] w-[80%] mx-auto"
+                                            options={defaultOptions}
+                                            animationData={animationData}
+                                            height={200}
+                                            width={200}
+                                        ></Lottie>
+                                        <h2 className="md:text-2xl text-lg font-medium text-center title-text text-red-400">There have no reviews!</h2>
+                                    </div>
+                            }
+                        </div>
+
+
+                        <div>
+                           <ReviewForm></ReviewForm>
+                        </div>
+
                     </div>
                 </div>
 
