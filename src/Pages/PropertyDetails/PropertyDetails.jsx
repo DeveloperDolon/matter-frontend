@@ -22,6 +22,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import useWishlistMutation from "../../Hooks/useWishlistMutation";
 
 
 
@@ -35,7 +36,8 @@ const PropertyDetails = () => {
     const data = useLoaderData();
     const [open, setOpen] = React.useState(false);
     const { data: reviews } = useAccessPropertyReviews(data?._id);
-
+    const {mutate: addToWishlist} = useWishlistMutation();
+    
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -63,7 +65,9 @@ const PropertyDetails = () => {
             buyer_name: user?.displayName,
         }
 
-        console.log(wishListData);
+
+        addToWishlist(wishListData);
+        
     }
 
 
