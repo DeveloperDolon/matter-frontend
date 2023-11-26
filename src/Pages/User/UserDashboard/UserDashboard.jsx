@@ -19,6 +19,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink, Outlet } from 'react-router-dom';
 import UserMenus, { DefaultMenu } from './UserMenus';
+import { Helmet } from 'react-helmet';
 
 
 const drawerWidth = 240;
@@ -106,6 +107,10 @@ function UserDashboard() {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
+
+                <Helmet>
+                    <title>MATTER | User Dashboard</title>
+                </Helmet>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -132,40 +137,41 @@ function UserDashboard() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {UserMenus?.map((item, idx) => { 
+                    {UserMenus?.map((item, idx) => {
 
-                    return(
-                        <NavLink
-                            className={({ isActive, isPending }) =>{
-                                if(isActive) {
-                                    setBtnActive(idx);
-                                }
-                                return isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 text-blue-500 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
-                            }}
-                            to={item?.link} key={idx}>
-                            <ListItem key={item?.text} disablePadding sx={{ display: 'block' }}>
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: open ? 'initial' : 'center',
-                                        px: 2.5,
-                                    }}
-                                >
-                                    <ListItemIcon
+                        return (
+                            <NavLink
+                                className={({ isActive, isPending }) => {
+                                    if (isActive) {
+                                        setBtnActive(idx);
+                                    }
+                                    return isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 text-blue-500 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
+                                }}
+                                to={item?.link} key={idx}>
+                                <ListItem key={item?.text} disablePadding sx={{ display: 'block' }}>
+                                    <ListItemButton
                                         sx={{
-                                            minWidth: 0,
-                                            mr: open ? 3 : 'auto',
-                                            justifyContent: 'center',
-                                            color: btnActive === idx ? "blue" : ""
+                                            minHeight: 48,
+                                            justifyContent: open ? 'initial' : 'center',
+                                            px: 2.5,
                                         }}
                                     >
-                                        {item?.icon}
-                                    </ListItemIcon>
-                                    <ListItemText primary={item?.text} sx={{ opacity: open ? 1 : 0 }} />
-                                </ListItemButton>
-                            </ListItem>
-                        </NavLink>
-                    )})}
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: 0,
+                                                mr: open ? 3 : 'auto',
+                                                justifyContent: 'center',
+                                                color: btnActive === idx ? "blue" : ""
+                                            }}
+                                        >
+                                            {item?.icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={item?.text} sx={{ opacity: open ? 1 : 0 }} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </NavLink>
+                        )
+                    })}
                 </List>
                 <Divider />
                 <List>

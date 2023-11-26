@@ -91,7 +91,7 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: color, width: btnWidth, display: 'block' }}
             >
                 <NavLink
-                    to={"/all-properties"}
+                    to={"/properties"}
                     className={({ isActive, isPending }) =>
                         isPending ? "pending w-full md:text-base text-xs font-bold block" : isActive ? "border-b-2 border-blue-100 w-full md:text-base text-xs font-bold block" : "w-full md:text-base text-xs font-bold block"
                     }
@@ -138,6 +138,7 @@ function ResponsiveAppBar() {
     return (
         <AppBar position="static" className='w-full'>
             <Container maxWidth="xl">
+
                 <Toolbar disableGutters>
                     <img src={logo} className='md:w-16 md:block hidden w-5 mr-2 py-3 rounded-full' />
                     <Typography

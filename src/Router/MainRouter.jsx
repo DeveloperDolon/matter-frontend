@@ -14,7 +14,7 @@ import UserDashboard from "../Pages/User/UserDashboard/UserDashboard";
 import UserProfile from "../Pages/User/UserProfile/UserProfile";
 import UserWishlist from "../Pages/User/UserWishlist/UserWishlist";
 import AllProperties from "../Pages/AllPropertiesPage/AllProperties";
-
+import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 
 const MainRouter = createBrowserRouter([
     {
@@ -31,7 +31,11 @@ const MainRouter = createBrowserRouter([
             },
             {
                 path: "/properties/:id",
-                element: <PrivateRoute><h1>hello world from details page</h1></PrivateRoute>
+                loader: ({params}) => {
+                    const userEmail = localStorage.getItem('userEmail');
+                    return fetch(`http://localhost:5000/properties/${params.id}?email=${userEmail}`)
+                },
+                element: <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>
             },
         ]
     },

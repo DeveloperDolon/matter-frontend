@@ -1,0 +1,40 @@
+.thumb {
+    width: 120px!important;
+    border: 1px solid black;
+}
+
+.thumb img {
+    height: 60px;
+    width: 100%;
+    object-fit: cover!important;
+}
+
+@media only screen and (max-width: 800px) {
+    .thumb {
+        width: 80px!important;
+    }
+
+    .thumb img {
+        height: 40px;
+    }
+}
+
+@media only screen and (max-width: 557px) {
+    .thumb {
+        width: 50px!important;
+    }
+
+    .thumb img {
+        height: 20px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .thumb {
+        width: 30px!important;
+    }
+
+    .thumb img {
+        height: 10px;
+    }
+}

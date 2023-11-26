@@ -41,6 +41,7 @@ const AuthProvider = ({ children }) => {
             if (currentUser) {
                 console.log(currentUser)
                 setUser(currentUser);
+                localStorage.setItem("userEmail", currentUser?.email);
 
                 axiosPublic.post("/jwt", { user: currentUser?.email })
                     .then(res => {

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Box, CircularProgress, Container } from "@mui/material";
 import PropertyCard from "../../Components/PropertyCard/PropertyCard";
+import { Helmet } from "react-helmet";
 
 
 const AllProperties = () => {
@@ -26,6 +27,9 @@ const AllProperties = () => {
 
     return (
         <Container maxWidth="lg" className="mx-auto md:mb-32 mb-28">
+            <Helmet>
+                <title>MATTER | All Properties</title>
+            </Helmet>
             <h1 className="md:mt-10 mt-5 md:text-5xl text-3xl font-bold text-center">All Properties</h1>
 
 
