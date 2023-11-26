@@ -33,7 +33,7 @@ const PropertyDetails = () => {
     return (
         <Container maxWidth="lg" className="mx-auto md:mb-32 mb-28">
             <div className="max-w-7xl mx-auto mt-16 w-full grid md:grid-cols-12 grid-cols-1 gap-5">
-                <div className="md:col-span-8">
+                <div className="md:col-span-9">
                     <h1 className="md:text-4xl text-2xl title-text font-bold">{data?.property_title}</h1>
 
                     <p className="mt-2 md:text-lg text-base font-medium mb-2 flex items-center gap-2">
@@ -153,13 +153,15 @@ const PropertyDetails = () => {
 
 
                         <div>
-                           <ReviewForm></ReviewForm>
+                           <ReviewForm id={data?._id} title={data?.property_title}
+                           agentName={data?.agent_name}
+                           ></ReviewForm>
                         </div>
 
                     </div>
                 </div>
 
-                <div className="md:col-span-4">
+                <div className="md:col-span-3">
                     Their will some feature in future.
                 </div>
             </div>
