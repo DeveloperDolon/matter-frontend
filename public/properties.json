@@ -1,0 +1,141 @@
+[
+    {
+        "property_title" : "FDL Kolpo Kotha",
+        "property_location" : "Plot-015, Road-506A, Sector-12, Jolshiri Abashon, Dhaka",
+        "property_images" : [
+            "https://fortress.com.bd/wp-content/uploads/2023/09/Kolpokotha-15361536-1024x1024.png",
+            "https://www.bdhousing.com/api/list/images/100X100/29060/9750589df6018cd134c1040a92116ed6.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/29061/30b935de2a02be67e1522d8c7fdfb833.jpg",
+            ""
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "150000-200000",
+        "overview" : [
+            {
+                "bed_room" : "04",
+                "bath_room" : "04",
+                "garage" : "01",
+                "area" : "2850 SFT",
+                "lot_size" : "05 Katha"
+            }
+        ],
+        "verified": false
+        
+    },
+    {
+        "property_title" : "FDL Aurora",
+        "property_location" : "Plot-001, Road-506B, Sector-12, Jolshiri Abashon, Dhaka",
+        "property_images" : [
+            "https://fortress.com.bd/wp-content/uploads/2022/06/Fortress-Venus.jpeg",
+            "https://www.bdhousing.com/api/list/images/100X100/29064/4ed22c023015fbf30b81d5f1c3b1ac90.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/29059/0dbe696a130d049e8354a2f4b2130628.jpg"
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "150000-200000",
+        "overview" : [
+            {
+                "bed_room" : "04",
+                "bath_room" : "04",
+                "garage" : "01",
+                "area" : "2850 SFT",
+                "lot_size" : "05 Katha"
+            }
+        ],
+        "verified": true
+        
+    },
+    {
+        "property_title" : "6958 sqft, 5 Beds (Duplex) for Sale at North Gulshan",
+        "property_location" : "Gulshan 01 , Dhaka",
+        "property_images" : [
+            "https://www.bdhousing.com/api/list/images/100X100/26736/ffe9dfd0ed3a786dde8b2cfc650ab59c.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/26737/0bc69493f0139379a8d69cf23e4aca59.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/29059/0dbe696a130d049e8354a2f4b2130628.jpg"
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "250000-300000",
+        "overview" : [
+            {
+                "bed_room" : "05",
+                "bath_room" : "05",
+                "garage" : "01",
+                "area" : "6958 SFT",
+                "lot_size" : "06 Katha"
+            }
+        ],
+        "verified": true
+        
+    },
+    {
+        "property_title" : "63427 sqftf lats for Sale at Gulshan 01",
+        "property_location" : "Gulshan 01 , Dhaka",
+        "property_images" : [
+            "https://www.bdhousing.com/api/list/listings/100X100/238634/501426599d1d3002504f0cd36cedc4fb.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/16914/830b993c6f4b814a76668dbc814a1f49.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/16926/dee51f32bf03d299c979816c8dc81c2f.jpg"
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "2500000-3000000",
+        "overview" : [
+            {
+                "bed_room" : "04",
+                "bath_room" : "05",
+                "garage" : "01",
+                "area" : "63427 SFT",
+                "lot_size" : "09 Katha"
+            }
+        ],
+        "verified": false
+        
+    },
+    {
+        "property_title" : "1550 sqft, 3 Beds Ready Flats for Sale at Mirpur 2",
+        "property_location" : "Mirpur 2 , Dhaka",
+        "property_images" : [
+            "https://www.bdhousing.com/api/list/images/100X100/32924/949d99e0aaf5ac09bb6f8e2d415d5a94.jpg",
+            "https://www.bdhousing.com/api/list/listings/100X100/246938/36d273eea1f9a196bde8195882ceea81.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/32923/70299b4c9295dac220143d9921fe7155.jpg"
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "150000-200000",
+        "overview" : [
+            {
+                "bed_room" : "03",
+                "bath_room" : "04",
+                "garage" : "01",
+                "area" : "1550 SFT",
+                "lot_size" : "04 Katha"
+            }
+        ],
+        "verified": true
+        
+    },
+    {
+        "property_title" : "2418 sqft, 3 Beds Flats for Sale at Banani",
+        "property_location" : "Banani , Dhaka",
+        "property_images" : [
+            "https://www.bdhousing.com/api/list/images/100X100/13927/0d46642ef619adf311f7df961861cb15.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/13928/3eea7c94dd08ee8846c9c86f5f2b9c59.jpg",
+            "https://www.bdhousing.com/api/list/images/100X100/13930/de666078956759c233115177894dae86.jpg"
+        ],
+        "agent_name" : "Balmona",
+        "agent_email" : "tarzan@kharzan.com",
+        "price_range" : "150000-200000",
+        "overview" : [
+            {
+                "bed_room" : "03",
+                "bath_room" : "04",
+                "garage" : "01",
+                "area" : "2418 SFT",
+                "lot_size" : "04 Katha"
+            }
+        ],
+        "verified": true
+        
+    }
+]

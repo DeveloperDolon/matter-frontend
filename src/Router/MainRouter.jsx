@@ -12,8 +12,7 @@ import AgentRoute from "./AgentRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserDashboard from "../Pages/User/UserDashboard/UserDashboard";
 import UserProfile from "../Pages/User/UserProfile/UserProfile";
-
-
+import UserWishlist from "../Pages/User/UserWishlist/UserWishlist";
 
 
 const MainRouter = createBrowserRouter([
@@ -40,8 +39,12 @@ const MainRouter = createBrowserRouter([
         element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
         children: [
             {
-                path: "/user-dashboard/",
+                path: "/user-dashboard/user-profile",
                 element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>
+            },
+            {
+                path: "/user-dashboard/user-wishlist",
+                element: <PrivateRoute><UserWishlist></UserWishlist></PrivateRoute>
             }
         ]
     },

@@ -11,12 +11,12 @@ const UserMenus = [
     {
         icon: <AccountCircleIcon></AccountCircleIcon>,
         text: "My Profile",
-        link: "/user-dashboard/"
+        link: "/user-dashboard/user-profile"
     },
     {
         icon: <FavoriteIcon></FavoriteIcon>,
         text: "Wishlist",
-        link: "/user-dashboard/wishlist"
+        link: "/user-dashboard/user-wishlist"
     },
     {
         icon: <LocalMallIcon></LocalMallIcon>,
