@@ -1,21 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../Hooks/useAuth";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 import ReviewCard from "./ReviewCard";
+import useAccessUserReview from "../../../Hooks/useAccessUserReview";
 
 
 const UserReviews = () => {
-    const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+   
 
-    const { data: reviews } = useQuery({
-        queryKey: ["user-reviews"],
-        queryFn: async () => {
-            const response = await axiosSecure.get(`/user-reviews?email=${user?.email}`);
-
-            return response.data;
-        }
-    })
+    const { data: reviews } = useAccessUserReview();
 
 
     return (
