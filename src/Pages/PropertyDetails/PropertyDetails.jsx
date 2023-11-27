@@ -23,6 +23,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import useWishlistMutation from "../../Hooks/useWishlistMutation";
+import { Helmet } from "react-helmet";
 
 
 
@@ -36,8 +37,8 @@ const PropertyDetails = () => {
     const data = useLoaderData();
     const [open, setOpen] = React.useState(false);
     const { data: reviews } = useAccessPropertyReviews(data?._id);
-    const {mutate: addToWishlist} = useWishlistMutation();
-    
+    const { mutate: addToWishlist } = useWishlistMutation();
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -67,14 +68,16 @@ const PropertyDetails = () => {
 
 
         addToWishlist(wishListData);
-        
+
     }
 
 
 
     return (
         <Container maxWidth="lg" className="mx-auto md:mb-32 mb-28">
-
+            <Helmet>
+                <title>MATTER | {data?.property_title}</title>
+            </Helmet>
 
             <div className="max-w-7xl mx-auto mt-16 w-full grid md:grid-cols-12 grid-cols-1 gap-5">
                 <div className="md:col-span-9">
