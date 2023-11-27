@@ -1,23 +1,37 @@
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import PropTypes from "prop-types";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useAccessUserReview from "../../../Hooks/useAccessUserReview";
+import React from "react";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const ReviewCard = ({ data }) => {
     const axiosSecure = useAxiosSecure();
-    const {user} = useAuth();
+    const { user } = useAuth();
     const { refetch } = useAccessUserReview();
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const handleDeleteReview = () => {
         axiosSecure.delete(`/user-reviews/${data?._id}?email=${user?.email}`)
-        .then(() => {
-            toast.success("Deleted successfully!");
-            refetch();
-        }).catch(err => {
-            toast.error(err.message);
-        })
+            .then(() => {
+                toast.success("Deleted successfully!");
+                refetch();
+            }).catch(err => {
+                toast.error(err.message);
+            })
     }
 
     return (
@@ -36,7 +50,28 @@ const ReviewCard = ({ data }) => {
             </div>
 
             <div>
-                <Button onClick={handleDeleteReview} variant="contained" color="error">Delete</Button>
+                <React.Fragment>
+                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                        Delete
+                    </Button>
+                    <Dialog
+                        open={open}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={handleClose}
+                        aria-describedby="alert-dialog-slide-description"
+                    >
+                        <DialogTitle>{"Are you sure? Want to delete!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={handleDeleteReview}>Agree</Button>
+                        </DialogActions>
+                    </Dialog>
+                </React.Fragment>
             </div>
         </div>
     );

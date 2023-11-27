@@ -12,7 +12,7 @@ const UserProfile = () => {
             </Helmet>
             <div className="max-w-xl mx-auto bg-cyan-300 rounded-2xl shadow-xl py-8 flex justify-center flex-col items-center">
                 <div className="md:py-5">
-                    <img className="border-[20px] outline outline-[30px] outline-cyan-100 border-opacity-40 border-white rounded-full" src={user?.photoURL} alt="" />
+                    <img className="border-[20px] md:w-[150px] md:h-[150px] w-[90px] h-[90px] object-cover outline outline-[30px] outline-cyan-100 border-opacity-40 border-white rounded-full" src={user?.photoURL} alt="" />
                 </div>
 
                 <div>

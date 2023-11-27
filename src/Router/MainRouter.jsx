@@ -18,6 +18,8 @@ import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import UserOffer from "../Pages/User/UserOffer/UserOffer";
 import UserBoughtProperty from "../Pages/User/UserBoughtProperty/UserBoughtProperty";
 import UserReviews from "../Pages/User/UserReviews/UserReviews";
+import AgentDashboard from "../Pages/Agent/AgentDashboard/AgentDashboard";
+import AgentProfile from "../Pages/Agent/AgentProfile/AgentProfile";
 
 const MainRouter = createBrowserRouter([
     {
@@ -48,7 +50,13 @@ const MainRouter = createBrowserRouter([
     },
     {
         path: "/agent-dashboard",
-        element: <AgentRoute><h1>Hello world!</h1></AgentRoute>
+        element: <AgentRoute><AgentDashboard></AgentDashboard></AgentRoute>,
+        children: [
+            {
+                path: "/agent-dashboard/agent-profile",
+                element: <AgentRoute><AgentProfile></AgentProfile></AgentRoute>
+            }
+        ]
     },
     {
         path: "/user-dashboard",

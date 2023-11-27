@@ -66,6 +66,18 @@ function ResponsiveAppBar() {
             setDashboardLink("/agent-dashboard/agent-profile");
         } else if (userRole === "user") {
             setDashboardLink("/user-dashboard/user-profile");
+        } else {
+            axiosPublic.get(`/user?email=${user?.email}`)
+                .then(res => {
+                    if (res.data.role === "admin") {
+                        setDashboardLink("/admin-dashboard/admin-profile");
+                    } else if (res.data.role === "agent") {
+                        setDashboardLink("/agent-dashboard/agent-profile");
+                    } else if (res.data.role === "user") {
+                        setDashboardLink("/user-dashboard/user-profile");
+                    }
+                })
+                .catch(err => console.log(err));
         }
     }, [userRole, user]);
 
