@@ -8,7 +8,7 @@ const UserWishlist = () => {
     // i have an api of propertys id, now i need to find all id and find property with this all id form another collection in mongodb. How can i access this all with moongose
     const { data: wishlistProperty } = useAccessWishlist();
 
-    return (
+    return (   
         <div className=" max-h-screen w-full md:px-10 px-5 md:py-16 py-5 md:pb-32 pb-24">
             <Helmet>
                 <title>MATTER | User Wishlist</title>
@@ -22,7 +22,7 @@ const UserWishlist = () => {
                     wishlistProperty?.wishlistProperties?.length > 0 ?
                         <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
                             {
-                                wishlistProperty.wishlistProperties.map(item => <WishlistPropertyCard key={item?._id} data={item}></WishlistPropertyCard>)
+                                wishlistProperty?.wishlistProperties?.map((item, idx) => <WishlistPropertyCard key={item?._id} data={item} wishlist_id={wishlistProperty?.wishlistData[idx]._id}></WishlistPropertyCard>)
                             }
                         </div>
                         : <div className="flex justify-center mt-10">

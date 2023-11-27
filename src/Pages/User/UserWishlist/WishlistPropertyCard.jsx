@@ -1,8 +1,43 @@
 import { LocationOn, Verified } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import PropTypes from "prop-types";
+import React from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAuth from "../../../Hooks/useAuth";
+import useAccessWishlist from "../../../Hooks/useAccessWishlist";
+import toast from "react-hot-toast";
 
-const WishlistPropertyCard = ({ data }) => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const WishlistPropertyCard = ({ data, wishlist_id }) => {
+    const {user} = useAuth();
+    const [open, setOpen] = React.useState(false);
+    const axiosSecure = useAxiosSecure();
+    const {refetch} = useAccessWishlist();
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleAddToWishlist = () => {
+
+        setOpen(false);
+        axiosSecure.delete(`/users-wishlist/${wishlist_id}?email=${user?.email}`)
+        .then(() => {
+            toast.success("Property removed from wishlist!");
+            refetch();
+        }).catch(err => {
+            toast.error(err.message);
+        })
+
+    }
+
     return (
         <div className="bg-[#fafafa] overflow-hidden shadow-xl flex flex-col justify-between rounded-lg">
             <div>
@@ -31,11 +66,32 @@ const WishlistPropertyCard = ({ data }) => {
             </div>
 
             <div className="pb-6 px-5 flex flex-wrap gap-3 justify-between">
-                <Button variant="contained">Make Offer</Button>
-
-                <Button variant="contained" color="error">
-                    Remove
+                <Button variant="contained">
+                    Make Offer
                 </Button>
+
+                <React.Fragment>
+                    <Button variant="contained" color="error" size="large" onClick={handleClickOpen}>
+                        Remove
+                    </Button>
+                    <Dialog
+                        open={open}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={handleClose}
+                        aria-describedby="alert-dialog-slide-description"
+                    >
+                        <DialogTitle>{"Are you sure? Want to remove it!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={handleAddToWishlist}>Agree</Button>
+                        </DialogActions>
+                    </Dialog>
+                </React.Fragment>
             </div>
         </div>
     );
@@ -44,5 +100,6 @@ const WishlistPropertyCard = ({ data }) => {
 export default WishlistPropertyCard;
 
 WishlistPropertyCard.propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    wishlist_id: PropTypes.string,
 }
