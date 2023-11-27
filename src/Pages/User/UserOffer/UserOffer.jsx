@@ -1,25 +1,69 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import toast from "react-hot-toast";
 
 
 const UserOffer = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const { data: wishlistData } = useQuery({
         queryKey: ["single-wishlist-data", user],
         queryFn: async () => {
-            const response = await axiosSecure.get(`/users-wishlist/${id}?email=${user?.email}`)
+            const response = await axiosSecure.get(`/users-wishlist/${id}?email=${user?.email}`);
 
             return response.data;
         }
     })
 
-    console.log(wishlistData)
+    const {mutate: boughtProperty} = useMutation({
+        mutationFn: async (propertyData) => {
+            return axiosSecure.post(`/user-bought-property?email=${user?.email}`, {...propertyData});
+        },
+        onSuccess: () => {
+            toast.success("Property bought successfully!");
+        },
+        onError: (err) => {
+            toast.error(err.message);
+        }
+    })
+
+    const handleMakeOffer = (e) => {
+        e.preventDefault();
+
+        const userOfferPrice = parseFloat(e.target.offeredPrice.value);
+
+        const priceRange = wishlistData?.property?.price_range.split("-");
+        const minPriceRange = parseFloat(priceRange[0]);
+        const maxPriceRange = parseFloat(priceRange[1]);
+        
+
+        if(userOfferPrice < minPriceRange || userOfferPrice > maxPriceRange) {
+            return toast.error("Your offered price is out of range!");
+        }
+
+        const offerInfo = {
+            property_id: wishlistData?.property?._id,
+            wishlist_id: wishlistData?.wishlistData?._id,
+            property_title: wishlistData?.property?.property_title,
+            property_location: wishlistData?.property?.property_location,
+            agent_name: wishlistData?.property?.agent_name,
+            agent_email: wishlistData?.property?.agent_email,
+            buyer_email: wishlistData?.wishlistData?.buyer_email,
+            buyer_name: wishlistData?.wishlistData?.buyer_name,
+            buying_data: e.target.buyingDate.value,
+            offered_price: userOfferPrice,
+        }
+
+        boughtProperty(offerInfo);
+
+        navigate("/user-dashboard/user-wishlist");
+    }
 
     return (
         <div className="w-full md:px-10 px-5 md:py-16 py-5 md:pb-32 pb-24">
@@ -27,7 +71,7 @@ const UserOffer = () => {
                 <title>MATTER | Make offer</title>
             </Helmet>
             <div className="max-w-5xl mx-auto md:px-0 sm:px-5 px-3">
-                <form>
+                <form onSubmit={handleMakeOffer}>
                     <div className="w-full bg-white p-10">
 
                         <h1 tabIndex={0} role="heading" aria-label="profile information" className="focus:outline-none text-3xl font-bold text-gray-800">
@@ -58,8 +102,8 @@ const UserOffer = () => {
                                 <input type="text" readOnly tabIndex={0} name="agentName" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.property?.agent_name} />
                             </div>
                             <div className="flex flex-col md:ml-12 md:mt-0 mt-8">
-                                <label className="mb-3 text-sm leading-none text-gray-800">Offered amount</label>
-                                <input type="number" tabIndex={0} aria-label="Enter phone number" required className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" defaultValue="+81 839274" />
+                                <label className="mb-3 text-sm leading-none text-gray-800">Offered amount (TK)</label>
+                                <input type="number" name="offeredPrice" tabIndex={0} required className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" defaultValue="+81 839274" />
                             </div>
                         </div>
                         <div className="mt-12 md:flex items-center">
@@ -75,7 +119,7 @@ const UserOffer = () => {
                         <div className="mt-12">
                             <div className="flex flex-col">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Buying Date</label>
-                                <input type="date" name="date" required tabIndex={0} aria-label="Enter place of birth" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"  />
+                                <input type="date" name="buyingDate" required tabIndex={0} aria-label="Enter place of birth" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200"  />
                             </div>
                         </div>
 
