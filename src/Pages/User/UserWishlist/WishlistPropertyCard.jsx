@@ -12,7 +12,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const WishlistPropertyCard = ({ data, wishlist_id }) => {
+const WishlistPropertyCard = ({ data }) => {
     const { user } = useAuth();
     const [open, setOpen] = React.useState(false);
     const axiosSecure = useAxiosSecure();
@@ -26,10 +26,10 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
         setOpen(false);
     };
 
-    const handleAddToWishlist = () => {
-
+    const handleRemoveProperty = (id) => {
+        console.log(id, data?.property_title)
         setOpen(false);
-        axiosSecure.delete(`/users-wishlist/${wishlist_id}?email=${user?.email}`)
+        axiosSecure.delete(`/users-wishlist/${id}?email=${user?.email}`)
             .then(() => {
                 toast.success("Property removed from wishlist!");
                 refetch();
@@ -43,7 +43,7 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
         <div className="bg-[#fafafa] overflow-hidden shadow-xl flex flex-col justify-between rounded-lg">
             <div>
                 <div>
-                    <img className="lg:h-[250px] md:h-[200px] h-[150px] object-cover w-full" src={data?.property_images[0]} alt="" />
+                    <img className="lg:h-[250px] md:h-[200px] h-[150px] object-cover w-full" src={data?.property_image} alt="" />
                 </div>
 
                 <div className="py-6 px-5">
@@ -67,7 +67,7 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
             </div>
 
             <div className="pb-6 px-5 flex flex-wrap gap-3 justify-between">
-                <Link to={`/user-dashboard/user-offer/${wishlist_id}`}>
+                <Link to={`/user-dashboard/user-offer/${data._id}`}>
                     <Button variant="contained">
                         Make Offer
                     </Button>
@@ -91,7 +91,7 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Disagree</Button>
-                            <Button onClick={handleAddToWishlist}>Agree</Button>
+                            <Button onClick={() => handleRemoveProperty(data?._id)}>Agree</Button>
                         </DialogActions>
                     </Dialog>
                 </React.Fragment>
@@ -104,5 +104,4 @@ export default WishlistPropertyCard;
 
 WishlistPropertyCard.propTypes = {
     data: PropTypes.object,
-    wishlist_id: PropTypes.string,
 }

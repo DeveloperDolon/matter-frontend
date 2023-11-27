@@ -21,7 +21,7 @@ const UserMenus = [
     {
         icon: <LocalMallIcon></LocalMallIcon>,
         text: "Property bought",
-        link: "/user-dashboard/property-bought"
+        link: "/user-dashboard/user-bought-property"
     },
     {
         icon: <ReviewsIcon></ReviewsIcon>,

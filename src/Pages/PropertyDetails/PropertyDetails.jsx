@@ -61,7 +61,15 @@ const PropertyDetails = () => {
         setOpen(false);
 
         const wishListData = {
-            property_id: data._id,
+            property_id: data?._id,
+            property_image: data?.property_images[0],
+            property_title: data?.property_title,
+            property_location: data?.property_location,
+            agent_name: data?.agent_name,
+            agent_email: data?.agent_email,
+            agent_image: data?.agent_image,
+            price_range: data?.price_range,
+            verified: data?.verified,
             buyer_email: user?.email,
             buyer_name: user?.displayName,
         }

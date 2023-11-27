@@ -38,28 +38,31 @@ const UserOffer = () => {
 
         const userOfferPrice = parseFloat(e.target.offeredPrice.value);
 
-        const priceRange = wishlistData?.property?.price_range.split("-");
+        const priceRange = wishlistData?.price_range.split("-");
         const minPriceRange = parseFloat(priceRange[0]);
         const maxPriceRange = parseFloat(priceRange[1]);
-        
 
         if(userOfferPrice < minPriceRange || userOfferPrice > maxPriceRange) {
             return toast.error("Your offered price is out of range!");
         }
 
+        
+
         const offerInfo = {
-            property_id: wishlistData?.property?._id,
-            wishlist_id: wishlistData?.wishlistData?._id,
-            property_title: wishlistData?.property?.property_title,
-            property_location: wishlistData?.property?.property_location,
-            agent_name: wishlistData?.property?.agent_name,
-            agent_email: wishlistData?.property?.agent_email,
-            buyer_email: wishlistData?.wishlistData?.buyer_email,
-            buyer_name: wishlistData?.wishlistData?.buyer_name,
+            property_id: wishlistData?.property_id,
+            wishlist_id: wishlistData?._id,
+            property_title: wishlistData?.property_title,
+            property_location: wishlistData?.property_location,
+            property_image: wishlistData?.property_image,
+            agent_name: wishlistData?.agent_name,
+            agent_email: wishlistData?.agent_email,
+            buyer_email: wishlistData?.buyer_email,
+            buyer_name: wishlistData?.buyer_name,
             buying_data: e.target.buyingDate.value,
             offered_price: userOfferPrice,
+            status: "pending"
         }
-
+        
         boughtProperty(offerInfo);
 
         navigate("/user-dashboard/user-wishlist");
@@ -84,22 +87,22 @@ const UserOffer = () => {
                             Property data
                         </h2>
                         <p className="text-sm font-light leading-none text-gray-600 mt-0.5">Property details and place of amount</p>
-                        <p className="md:text-lg text-base font-bold mt-3 text-blue-700">Price Range : {wishlistData?.property?.price_range} TK</p>
+                        <p className="md:text-lg text-base font-bold mt-3 text-blue-700">Price Range : {wishlistData?.price_range} TK</p>
                         
                         <div className="mt-8 md:flex items-center">
                             <div className="flex flex-col">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Property title</label>
-                                <input type="text" tabIndex={0} name="propertyTitle" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.property?.property_title} readOnly />
+                                <input type="text" tabIndex={0} name="propertyTitle" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.property_title} readOnly />
                             </div>
                             <div className="flex flex-col md:ml-12 md:mt-0 mt-8">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Property location</label>
-                                <input type="text" readOnly tabIndex={0} className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" name="propertyLocation" value={wishlistData?.property?.property_location} />
+                                <input type="text" readOnly tabIndex={0} className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" name="propertyLocation" value={wishlistData?.property_location} />
                             </div>
                         </div>
                         <div className="mt-12 md:flex items-center">
                             <div className="flex flex-col">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Agent Name</label>
-                                <input type="text" readOnly tabIndex={0} name="agentName" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.property?.agent_name} />
+                                <input type="text" readOnly tabIndex={0} name="agentName" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.agent_name} />
                             </div>
                             <div className="flex flex-col md:ml-12 md:mt-0 mt-8">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Offered amount (TK)</label>
@@ -109,11 +112,11 @@ const UserOffer = () => {
                         <div className="mt-12 md:flex items-center">
                             <div className="flex flex-col">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Buyer Email</label>
-                                <input type="email" tabIndex={0} readOnly className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.wishlistData?.buyer_email} />
+                                <input type="email" tabIndex={0} readOnly className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.buyer_email} />
                             </div>
                             <div className="flex flex-col md:ml-12 md:mt-0 mt-8">
                                 <label className="mb-3 text-sm leading-none text-gray-800">Buyer email</label>
-                                <input type="text" tabIndex={0} aria-label="Enter place of birth" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.wishlistData?.buyer_name} />
+                                <input type="text" tabIndex={0} aria-label="Enter place of birth" className="w-64 bg-gray-100 text-sm font-medium leading-none text-gray-800 p-3 border rounded border-gray-200" value={wishlistData?.buyer_name} />
                             </div>
                         </div>
                         <div className="mt-12">

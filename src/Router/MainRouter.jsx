@@ -16,6 +16,7 @@ import UserWishlist from "../Pages/User/UserWishlist/UserWishlist";
 import AllProperties from "../Pages/AllPropertiesPage/AllProperties";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import UserOffer from "../Pages/User/UserOffer/UserOffer";
+import UserBoughtProperty from "../Pages/User/UserBoughtProperty/UserBoughtProperty";
 
 const MainRouter = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/user-dashboard/user-offer/:id",
                 element: <PrivateRoute><UserOffer></UserOffer></PrivateRoute>
+            },
+            {
+                path: "/user-dashboard/user-bought-property",
+                element: <PrivateRoute><UserBoughtProperty></UserBoughtProperty></PrivateRoute>
             }
         ]
     },

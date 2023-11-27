@@ -1,12 +1,17 @@
 import { Helmet } from "react-helmet";
 import useAccessWishlist from "../../../Hooks/useAccessWishlist";
 import WishlistPropertyCard from "./WishlistPropertyCard";
+import { useEffect } from "react";
 
 
 const UserWishlist = () => {
 
     // i have an api of propertys id, now i need to find all id and find property with this all id form another collection in mongodb. How can i access this all with moongose
-    const { data: wishlistProperty } = useAccessWishlist();
+    const { data: wishlistProperty, refetch } = useAccessWishlist();
+
+    useEffect(() => {
+        refetch();
+    }, []);
 
     return (   
         <div className=" max-h-screen w-full md:px-10 px-5 md:py-16 py-5 md:pb-32 pb-24">
@@ -19,10 +24,12 @@ const UserWishlist = () => {
 
             <div className="md:mt-16 mt-10 ">
                 {
-                    wishlistProperty?.wishlistProperties?.length > 0 ?
+                    wishlistProperty?.length > 0 ?
                         <div className="grid 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
                             {
-                                wishlistProperty?.wishlistProperties?.map((item, idx) => <WishlistPropertyCard key={item?._id} data={item} wishlist_id={wishlistProperty?.wishlistData[idx]._id}></WishlistPropertyCard>)
+                                wishlistProperty?.map((item) => {
+
+                                return <WishlistPropertyCard key={item?._id} data={item}></WishlistPropertyCard>})
                             }
                         </div>
                         : <div className="flex justify-center mt-10">
