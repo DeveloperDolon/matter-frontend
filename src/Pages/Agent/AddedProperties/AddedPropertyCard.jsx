@@ -1,9 +1,43 @@
 import { LocationOn } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import useAuth from "../../../Hooks/useAuth";
+import useAccessAgentProperties from "../../../Hooks/useAccessAgentProperties";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+})
 
 const AddedPropertyCard = ({ data }) => {
+    const [open, setOpen] = React.useState(false);
+    const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
+    const {refetch} = useAccessAgentProperties();
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleRemoveProperty = (id) => {
+        
+        setOpen(false);
+        axiosSecure.delete(`/agent-properties/${id}?email=${user?.email}`)
+            .then(() => {
+                toast.success("Property removed from wishlist!");
+                refetch();
+            }).catch(err => {
+                toast.error(err.message);
+            })
+
+    }
 
     return (
         <div className="bg-cyan-100 shadow-xl overflow-hidden rounded-xl flex flex-col justify-between">
@@ -35,8 +69,31 @@ const AddedPropertyCard = ({ data }) => {
             </div>
 
             <div className="p-6 flex justify-between gap-5 flex-wrap">
-                <Button variant="contained" size="small">Update</Button>
-                <Button variant="contained" color="error" size="small">Delete</Button>
+                <Link to={`/agent-dashboard/property-update/${data._id}`}>  
+                    <Button variant="contained" size="small">Update</Button>
+                </Link>
+                <React.Fragment>
+                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                        Remove
+                    </Button>
+                    <Dialog
+                        open={open}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={handleClose}
+                        aria-describedby="alert-dialog-slide-description"
+                    >
+                        <DialogTitle>{"Are you sure? Want to remove it!"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Disagree</Button>
+                            <Button onClick={() => handleRemoveProperty(data?._id)}>Agree</Button>
+                        </DialogActions>
+                    </Dialog>
+                </React.Fragment>
             </div>
         </div>
     );
