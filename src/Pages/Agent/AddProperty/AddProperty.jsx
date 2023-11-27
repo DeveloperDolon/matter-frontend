@@ -26,10 +26,11 @@ const AddProperty = () => {
     const { user } = useAuth();
     const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY;
     const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-
+    
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
 
@@ -39,6 +40,7 @@ const AddProperty = () => {
         },
         onSuccess: () => {
             toast.success("Property successfully added!");
+            reset();
         },
         onError: (error) => {
             toast.error(error.message);

@@ -21,6 +21,7 @@ import UserReviews from "../Pages/User/UserReviews/UserReviews";
 import AgentDashboard from "../Pages/Agent/AgentDashboard/AgentDashboard";
 import AgentProfile from "../Pages/Agent/AgentProfile/AgentProfile";
 import AddProperty from "../Pages/Agent/AddProperty/AddProperty";
+import AddedProperties from "../Pages/Agent/AddedProperties/AddedProperties";
 
 const MainRouter = createBrowserRouter([
     {
@@ -60,6 +61,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/agent-dashboard/agent-add-property",
                 element: <AgentRoute><AddProperty></AddProperty></AgentRoute>
+            },
+            {
+                path: "/agent-dashboard/agent-added-properties",
+                element: <AgentRoute><AddedProperties></AddedProperties></AgentRoute>
             }
         ]
     },

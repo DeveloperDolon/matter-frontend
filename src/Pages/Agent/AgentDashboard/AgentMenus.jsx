@@ -5,8 +5,6 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import AddAlarmIcon from '@mui/icons-material/AddAlarm';
 
-
-
 const UserMenus = [
     {
         icon: <AccountCircleIcon></AccountCircleIcon>,
