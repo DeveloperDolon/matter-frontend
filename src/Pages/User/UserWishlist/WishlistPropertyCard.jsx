@@ -6,16 +6,17 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import useAccessWishlist from "../../../Hooks/useAccessWishlist";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const WishlistPropertyCard = ({ data, wishlist_id }) => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [open, setOpen] = React.useState(false);
     const axiosSecure = useAxiosSecure();
-    const {refetch} = useAccessWishlist();
+    const { refetch } = useAccessWishlist();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -29,12 +30,12 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
 
         setOpen(false);
         axiosSecure.delete(`/users-wishlist/${wishlist_id}?email=${user?.email}`)
-        .then(() => {
-            toast.success("Property removed from wishlist!");
-            refetch();
-        }).catch(err => {
-            toast.error(err.message);
-        })
+            .then(() => {
+                toast.success("Property removed from wishlist!");
+                refetch();
+            }).catch(err => {
+                toast.error(err.message);
+            })
 
     }
 
@@ -66,12 +67,14 @@ const WishlistPropertyCard = ({ data, wishlist_id }) => {
             </div>
 
             <div className="pb-6 px-5 flex flex-wrap gap-3 justify-between">
-                <Button variant="contained">
-                    Make Offer
-                </Button>
+                <Link to={`/user-dashboard/user-offer/${wishlist_id}`}>
+                    <Button variant="contained">
+                        Make Offer
+                    </Button>
+                </Link>
 
                 <React.Fragment>
-                    <Button variant="contained" color="error" size="large" onClick={handleClickOpen}>
+                    <Button variant="contained" color="error" onClick={handleClickOpen}>
                         Remove
                     </Button>
                     <Dialog

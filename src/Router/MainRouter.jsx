@@ -15,6 +15,7 @@ import UserProfile from "../Pages/User/UserProfile/UserProfile";
 import UserWishlist from "../Pages/User/UserWishlist/UserWishlist";
 import AllProperties from "../Pages/AllPropertiesPage/AllProperties";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
+import UserOffer from "../Pages/User/UserOffer/UserOffer";
 
 const MainRouter = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/user-dashboard/user-wishlist",
                 element: <PrivateRoute><UserWishlist></UserWishlist></PrivateRoute>
+            },
+            {
+                path: "/user-dashboard/user-offer/:id",
+                element: <PrivateRoute><UserOffer></UserOffer></PrivateRoute>
             }
         ]
     },
