@@ -18,20 +18,19 @@ const UserBoughtProperty = () => {
         }
     })
 
-    const ab = 0;
 
     return (
         <div className="w-full md:px-10 px-5 md:py-16 py-5 md:pb-32 pb-24">
             <h1 className="md:text-5xl  text-3xl font-semibold title-text">Property Bought</h1>
 
-            <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7 md:mt-16 mt-10">
+            <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7 md:mt-16 mt-10">
                 {
-                    ab > 0 ? 
+                    boughtProperty?.length > 0 ? 
 
                     boughtProperty?.map(item => <div className="bg-[#fafafa] overflow-hidden rounded-xl shadow-lg flex flex-col justify-between" key={item._id}>
                         <div>
                             <div>
-                                <img className="lg:h-[350px] object-cover md:h-[300px] sm:h-[250px] h-[200px] w-full" src={item.property_image} alt="" />
+                                <img className="lg:h-[300px] object-cover  sm:h-[250px] h-[200px] w-full" src={item.property_image} alt="" />
                             </div>
 
                             <div className="p-6 pb-0">
@@ -63,7 +62,7 @@ const UserBoughtProperty = () => {
 
                     :
 
-                        <div className="flex 2xl:col-span-5 xl:col-span-4 lg:col-span-3 md:col-span-2  justify-center">
+                        <div className="flex 2xl:col-span-4 lg:col-span-3 md:col-span-2  justify-center">
                             <img className="md:w-[70%] mx-auto w-full" src="https://theyouthproject.in/static/media/empty_data_set.88c7d759.png" alt="" />
                         </div>
                 }

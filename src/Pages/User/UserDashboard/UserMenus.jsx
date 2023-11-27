@@ -26,7 +26,7 @@ const UserMenus = [
     {
         icon: <ReviewsIcon></ReviewsIcon>,
         text: "My Review",
-        link: "/user-dashboard/reviews"
+        link: "/user-dashboard/user-reviews"
     }
 
 ]

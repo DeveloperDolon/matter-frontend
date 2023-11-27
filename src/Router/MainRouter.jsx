@@ -17,6 +17,7 @@ import AllProperties from "../Pages/AllPropertiesPage/AllProperties";
 import PropertyDetails from "../Pages/PropertyDetails/PropertyDetails";
 import UserOffer from "../Pages/User/UserOffer/UserOffer";
 import UserBoughtProperty from "../Pages/User/UserBoughtProperty/UserBoughtProperty";
+import UserReviews from "../Pages/User/UserReviews/UserReviews";
 
 const MainRouter = createBrowserRouter([
     {
@@ -68,6 +69,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/user-dashboard/user-bought-property",
                 element: <PrivateRoute><UserBoughtProperty></UserBoughtProperty></PrivateRoute>
+            },
+            {
+                path: "/user-dashboard/user-reviews",
+                element: <PrivateRoute><UserReviews></UserReviews></PrivateRoute>
             }
         ]
     },
