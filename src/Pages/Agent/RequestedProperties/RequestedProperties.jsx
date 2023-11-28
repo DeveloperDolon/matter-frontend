@@ -28,7 +28,6 @@ const RequestedProperties = () => {
         }
     });
 
-    console.log(requestedProperties);
 
     const rows = requestedProperties?.map(item => {
         return createData(item._id, item.property_title, item.property_location, item.buyer_email, item.buyer_name, item.offered_price, item.property_id, item.status);
@@ -44,7 +43,6 @@ const RequestedProperties = () => {
     })
 
     const handleAcceptRequest = (id, property_id) => {
-        console.log(property_id)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -72,7 +70,30 @@ const RequestedProperties = () => {
     }
 
     const handleRejectRequest = (id) => {
-        alert(id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Reject it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                mutate({
+                    boughtId: id,
+                    property_id: null,
+                    status: "rejected",
+                })
+
+                Swal.fire({
+                    title: "Rejected!",
+                    text: "Requested has been rejected.",
+                    icon: "success"
+                });
+            }
+        });
     }
 
 
@@ -102,7 +123,7 @@ const RequestedProperties = () => {
                                 {rows?.map((row, idx) => (
                                     <TableRow
                                         className={`${idx % 2 === 0 ? "bg-purple-100" : "bg-cyan-100"}`}
-                                        key={row.property_title}
+                                        key={row.id}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell align="center" component="th" scope="row">
