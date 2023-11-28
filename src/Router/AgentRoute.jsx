@@ -7,7 +7,7 @@ const AgentRoute = ({children}) => {
     const {loading, user, userRole} = useAuth();
 
 
-    if(user && userRole === "agent") {
+    if(user && userRole === "agent" || userRole === "fraud") {
         return children
     }
 

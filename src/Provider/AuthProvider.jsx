@@ -57,6 +57,9 @@ const AuthProvider = ({ children }) => {
                                 } else if (res.data.role === "user") {
                                     setUserRole("user");
                                     setLoading(false);
+                                }else if (res.data.role === "fraud") {
+                                    setUserRole("fraud");
+                                    setLoading(false);
                                 }
                             })
                             .catch(err => console.log(err));

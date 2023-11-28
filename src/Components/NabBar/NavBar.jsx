@@ -62,7 +62,7 @@ function ResponsiveAppBar() {
     React.useEffect(() => {
         if (userRole === "admin") {
             setDashboardLink("/admin-dashboard/admin-profile");
-        } else if (userRole === "agent") {
+        } else if (userRole === "agent" || userRole === "fraud") {
             setDashboardLink("/agent-dashboard/agent-profile");
         } else if (userRole === "user") {
             setDashboardLink("/user-dashboard/user-profile");

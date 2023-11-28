@@ -43,7 +43,7 @@ const AdminManageUser = () => {
         }
     })
 
-    const updatingUser = (id, roleStatus) => {
+    const updatingUser = (id, roleStatus, fraudEmail) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -54,10 +54,13 @@ const AdminManageUser = () => {
             confirmButtonText: `Yes, Make user ${roleStatus === "admin" ? "Admin" : roleStatus === "agent" ? "Agent" : roleStatus === "fraud" ? "Fraud" : "" }!`
         }).then((result) => {
             if (result.isConfirmed) {
-
-                const statusData = {
+                let statusData = {
                     id: id,
                     role: roleStatus
+                }
+
+                if(fraudEmail) {
+                    statusData.fraudEmail = fraudEmail;
                 }
 
                 mutate(statusData);
@@ -75,8 +78,8 @@ const AdminManageUser = () => {
        updatingUser(id, "admin");
     }
 
-    const handleMakeFraud = (id) => {
-        updatingUser(id, "fraud");
+    const handleMakeFraud = (id, fraudEmail) => {
+        updatingUser(id, "fraud", fraudEmail);
     }
     
     const handleDeleteUser = (id) => {
@@ -156,7 +159,7 @@ const AdminManageUser = () => {
                                                 row.role === "admin" ? <p className="w-fit mx-auto py-1 px-3 md:text-lg text-base bg-cyan-500 text-white rounded-full">Admin</p>
                                                     : row.role === "agent" ? <div className="grid grid-cols-1 gap-2"> 
                                                         <Button variant="contained" color="secondary"  onClick={() => handleMakeAdmin(row.id)} size="small">Make Admin</Button>
-                                                        <Button variant="contained" size="small" onClick={() => handleMakeFraud(row.id)} color="warning">Make as fraud</Button>
+                                                        <Button variant="contained" size="small" onClick={() => handleMakeFraud(row.id, row.user_email)} color="warning">Make as fraud</Button>
                                                         <Button variant="contained" onClick={() => handleDeleteUser(row.id)} size="small" color="error">Delete</Button>
                                                     </div>
                                                     : row.role === "fraud" ? <p className="w-fit mx-auto py-1 px-3 md:text-sm text-xs bg-red-500 text-white rounded-full">Fraud</p> 
