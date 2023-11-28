@@ -29,6 +29,7 @@ import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
 import AdminManageProperties from "../Pages/Admin/AdminManageProperties/AdminManageProperties";
 import AdminManageUser from "../Pages/Admin/AdminManageUser/AdminManageUser";
 import ManageReview from "../Pages/Admin/ManageReview/ManageReview";
+import PaymentPage from "../Pages/User/UserBoughtProperty/PaymentPage";
 
 const MainRouter = createBrowserRouter([
     {
@@ -132,6 +133,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/user-dashboard/user-reviews",
                 element: <PrivateRoute><UserReviews></UserReviews></PrivateRoute>
+            },
+            {
+                path: "/user-dashboard/payment/:id",
+                element: <PrivateRoute><PaymentPage></PaymentPage></PrivateRoute>
             }
         ]
     },

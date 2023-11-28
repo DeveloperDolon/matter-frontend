@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import { LocationOn } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 const UserBoughtProperty = () => {
@@ -47,12 +48,14 @@ const UserBoughtProperty = () => {
                         <div className="px-6 pb-6 pt-3">
                             {
                                 item?.status === "accepted" ? 
-                                <Button
-                                color="info"
-                                size="large"
-                                variant="contained"
+                                <Link to={`/user-dashboard/payment/${item?._id}`}>
+                                    <Button
+                                    color="info"
+                                    size="large"
+                                    variant="contained"
 
-                                >Pay</Button>
+                                    >Pay</Button>
+                                </Link>
                                 : <p className={`md:text-sm text-xs font-medium title-text w-fit py-2 px-3 ${item?.status === "rejected" ? "bg-red-500" : "bg-yellow-500"} text-white rounded-full shadow-lg`}>
                                     Status : {item?.status}
                                 </p>
