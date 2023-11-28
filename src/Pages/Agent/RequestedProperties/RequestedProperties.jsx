@@ -101,7 +101,7 @@ const RequestedProperties = () => {
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
             <div className="flex justify-between gap-10 flex-wrap">
                 <h1 className="title-text md:text-5xl text-3xl ">Requested Properties</h1>
-                <h1 className="title-text md:text-5xl text-3xl ">Total asdf : {requestedProperties?.length}</h1>
+                <h1 className="title-text md:text-5xl text-3xl ">Total : {requestedProperties?.length}</h1>
             </div>
 
             {

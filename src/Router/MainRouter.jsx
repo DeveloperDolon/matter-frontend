@@ -25,6 +25,7 @@ import AddedProperties from "../Pages/Agent/AddedProperties/AddedProperties";
 import UpdateProperty from "../Pages/Agent/UpdateProperty/UpdateProperty";
 import AgentSoldProperties from "../Pages/Agent/AgentSoldProperties/AgentSoldProperties";
 import RequestedProperties from "../Pages/Agent/RequestedProperties/RequestedProperties";
+import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
 
 const MainRouter = createBrowserRouter([
     {
@@ -51,7 +52,13 @@ const MainRouter = createBrowserRouter([
     },
     {
         path: "/admin-dashboard",
-        element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+        element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>,
+        children: [
+            {
+                path: "/admin-dashboard/admin-profile",
+                element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+            }
+        ]
     },
     {
         path: "/agent-dashboard",

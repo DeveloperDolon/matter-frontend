@@ -35,7 +35,7 @@ const AgentSoldProperties = () => {
 
             <div className="flex justify-between gap-10 flex-wrap">
                 <h1 className="title-text md:text-5xl text-3xl ">Sold Properties</h1>
-                <h1 className="title-text md:text-5xl text-3xl ">Total asdf : {soldProperties?.length}</h1>
+                <h1 className="title-text md:text-5xl text-3xl ">Total : {soldProperties?.length}</h1>
             </div>
 
             {
