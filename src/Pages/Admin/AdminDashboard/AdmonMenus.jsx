@@ -13,7 +13,7 @@ const UserMenus = [
     {
         icon: <FactCheckIcon></FactCheckIcon>,
         text: "Manage Properties",
-        link: "/admin-dashboard/agent-add-property"
+        link: "/admin-dashboard/admin-manage-properties"
     },
     {
         icon: <ManageAccounts></ManageAccounts>,
