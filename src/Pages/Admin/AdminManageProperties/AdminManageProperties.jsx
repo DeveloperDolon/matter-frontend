@@ -101,7 +101,7 @@ const AdminManageProperties = () => {
     return (
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
             <Helmet>
-                <title>MATTER | Agent Profile</title>
+                <title>MATTER | Admin manage properties</title>
             </Helmet>
 
             <div className="flex justify-between gap-10 flex-wrap">
