@@ -53,12 +53,20 @@ const UserBoughtProperty = () => {
                                     color="info"
                                     size="large"
                                     variant="contained"
-
                                     >Pay</Button>
                                 </Link>
-                                : <p className={`md:text-sm text-xs font-medium title-text w-fit py-2 px-3 ${item?.status === "rejected" ? "bg-red-500" : "bg-yellow-500"} text-white rounded-full shadow-lg`}>
-                                    Status : {item?.status}
-                                </p>
+                                : 
+                                <div className="flex justify-between items-center gap-5 flex-wrap">
+                                    <p className={`md:text-sm text-xs font-medium title-text w-fit py-2 px-3 ${item?.status === "rejected" ? "bg-red-500" : item?.status === "pending" ? "bg-yellow-500" : "bg-green-400"} text-white rounded-full shadow-lg`}>
+                                    Status : {item?.status === "sold" ? "Bought" : item?.status === "pending" ? "Pending" : "Rejected"}
+                                    </p>
+                                    
+                                    {
+                                        item?.status === "sold" &&  <p className={` md:text-xs text-[10px] font-semibold title-text w-fit `}>
+                                        transactionID: {item?.transactionID}
+                                        </p>
+                                    }
+                                </div>
                             }
                         </div>
                     </div>)

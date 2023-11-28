@@ -8,8 +8,10 @@ import useAuth from "../../../Hooks/useAuth";
 import PropTypes from "prop-types";
 import useAccessSingleBoughtProperty from "../../../Hooks/useAccessSingleBoughtProperty";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({id}) => {
+    const navigate = useNavigate();
     const {data} = useAccessSingleBoughtProperty(id);
 
     const stripe = useStripe();
@@ -76,6 +78,7 @@ const CheckoutForm = ({id}) => {
             }
         )
 
+
         if (confirmError) {
             console.log("confirm error")
         } else {
@@ -88,15 +91,15 @@ const CheckoutForm = ({id}) => {
                     price: totalPrice,
                     date: new Date(),
                     transactionID: paymentIntent.id,
-                    cartIds: data.map(item => item._id),
-                    menuItemIds: data.map(item => item.product_id),
+                    bought_property_id: id,
                     status: "pending"
                 }
 
-                const res = await axiosSecure.post("/api/v1/payment", payment);
+                const res = await axiosSecure.post(`/user-payment/${id}?email=${user?.email}`, {...payment});
                 console.log(res);
-                if(res?.data?.paymentResult?.insertedId) {
-                    toast.success("Transaction complete!!")
+                if(res?.data[0]?._id) {
+                    toast.success("Transaction complete!!");
+                    navigate("/user-dashboard/user-bought-property");
                 }
 
             }
