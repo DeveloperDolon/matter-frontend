@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import useAccessAgentProperties from "../../../Hooks/useAccessAgentProperties";
 import AddedPropertyCard from "./AddedPropertyCard";
 
@@ -8,6 +9,10 @@ const AddedProperties = () => {
 
     return (
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
+            <Helmet>
+                <title>MATTER | Added Property</title>
+            </Helmet>
+
             <h1 className="md:text-5xl text-3xl font-semibold title-text">My all added properties</h1>
 
             {

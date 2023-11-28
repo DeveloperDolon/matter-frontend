@@ -22,6 +22,8 @@ import AgentDashboard from "../Pages/Agent/AgentDashboard/AgentDashboard";
 import AgentProfile from "../Pages/Agent/AgentProfile/AgentProfile";
 import AddProperty from "../Pages/Agent/AddProperty/AddProperty";
 import AddedProperties from "../Pages/Agent/AddedProperties/AddedProperties";
+import UpdateProperty from "../Pages/Agent/UpdateProperty/UpdateProperty";
+import AgentSoldProperties from "../Pages/Agent/AgentSoldProperties/AgentSoldProperties";
 
 const MainRouter = createBrowserRouter([
     {
@@ -65,6 +67,18 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/agent-dashboard/agent-added-properties",
                 element: <AgentRoute><AddedProperties></AddedProperties></AgentRoute>
+            },
+            {
+                path: "/agent-dashboard/property-update/:id",
+                loader: ({params}) => {
+                    const userEmail = localStorage.getItem('userEmail');
+                    return fetch(`http://localhost:5000/properties/${params.id}?email=${userEmail}`)
+                },
+                element: <AgentRoute><UpdateProperty></UpdateProperty></AgentRoute>
+            },
+            {
+                path: "/agent-dashboard/agent-sold-properties",
+                element: <AgentRoute><AgentSoldProperties></AgentSoldProperties></AgentRoute>
             }
         ]
     },
