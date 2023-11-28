@@ -24,6 +24,7 @@ import AddProperty from "../Pages/Agent/AddProperty/AddProperty";
 import AddedProperties from "../Pages/Agent/AddedProperties/AddedProperties";
 import UpdateProperty from "../Pages/Agent/UpdateProperty/UpdateProperty";
 import AgentSoldProperties from "../Pages/Agent/AgentSoldProperties/AgentSoldProperties";
+import RequestedProperties from "../Pages/Agent/RequestedProperties/RequestedProperties";
 
 const MainRouter = createBrowserRouter([
     {
@@ -79,6 +80,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/agent-dashboard/agent-sold-properties",
                 element: <AgentRoute><AgentSoldProperties></AgentSoldProperties></AgentRoute>
+            },
+            {
+                path: "/agent-dashboard/agent-requested-properties",
+                element: <AgentRoute><RequestedProperties></RequestedProperties></AgentRoute>
             }
         ]
     },
