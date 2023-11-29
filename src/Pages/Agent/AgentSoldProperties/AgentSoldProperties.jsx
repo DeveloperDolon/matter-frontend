@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Helmet } from "react-helmet";
 
 function createData(property_title, property_location, buyer_email, buyer_name, sold_price) {
     return { property_title, property_location, buyer_email, buyer_name, sold_price };
@@ -32,7 +33,9 @@ const AgentSoldProperties = () => {
 
     return (
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
-
+             <Helmet>
+                <title>MATTER | Sold Properties</title>
+            </Helmet>
             <div className="flex justify-center gap-10 flex-wrap pb-5">
                 <h1 className="title-text md:text-5xl text-3xl text-center">Sold Properties</h1>
             </div>

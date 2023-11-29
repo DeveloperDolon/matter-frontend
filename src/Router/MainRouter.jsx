@@ -31,6 +31,7 @@ import AdminManageUser from "../Pages/Admin/AdminManageUser/AdminManageUser";
 import ManageReview from "../Pages/Admin/ManageReview/ManageReview";
 import PaymentPage from "../Pages/User/UserBoughtProperty/PaymentPage";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AdvertiseProperty from "../Pages/Admin/AdvertisProperty/AdvertisProperty";
 
 const MainRouter = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const MainRouter = createBrowserRouter([
             {
                 path: "/admin-dashboard/admin-manage-review",
                 element: <AdminRoute><ManageReview></ManageReview></AdminRoute>
+            },
+            {
+                path: "/admin-dashboard/admin-advertise-property",
+                element: <AdminRoute><AdvertiseProperty></AdvertiseProperty></AdminRoute>
             }
         ]
     },

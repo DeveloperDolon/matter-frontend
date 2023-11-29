@@ -1,5 +1,5 @@
 
-import { HomeMaxOutlined, ManageAccounts, ViewWeek } from '@mui/icons-material';
+import { AdUnits, HomeMaxOutlined, ManageAccounts, ViewWeek } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PreviewIcon from '@mui/icons-material/Preview';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
@@ -24,6 +24,11 @@ const UserMenus = [
         icon: <PreviewIcon></PreviewIcon>,
         text: "Manage Review",
         link: "/admin-dashboard/admin-manage-review"
+    },
+    {
+        icon: <AdUnits></AdUnits>,
+        text: "Advertise Property",
+        link: "/admin-dashboard/admin-advertise-property"
     }
 
 ]

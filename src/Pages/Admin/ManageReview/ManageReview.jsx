@@ -1,4 +1,5 @@
 
+import { Helmet } from "react-helmet";
 import useAccessAllReviews from "../../../Hooks/useAccessAllReviews";
 import ReviewCardAdmin from "./ReviewCardAdmin";
 
@@ -9,6 +10,9 @@ const ManageReview = () => {
 
     return (
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
+            <Helmet>
+                <title>MATTER | Manage Reviews</title>
+            </Helmet>
             <div className="flex justify-between gap-8 flex-wrap">
                 <h1 className="md:text-5xl text-3xl font-medium title-text">Manage Reviews</h1>
                 <h1 className="md:text-5xl text-3xl font-medium title-text">Total : {data?.length}</h1>
