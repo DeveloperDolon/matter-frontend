@@ -28,7 +28,7 @@ const ErrorPage = () => {
                     height={200}
                     width={200}
                 ></Lottie>
-                <h2 className="md:text-7xl mb-8 text-5xl font-medium text-center title-text">Page Not Found!</h2>
+                <h2 className="md:text-5xl mb-8 text-3xl font-medium text-center title-text">Page Not Found!</h2>
                 <Link to="/" className="px-7 py-4 bg-cyan-500 rounded-xl shadow-lg text-white title-text font-semibold uppercase md:text-sm text-xs">Back to home</Link>
             </div>
         </div>
