@@ -105,15 +105,12 @@ const PropertyDetails = () => {
                     </div>
 
                     <Carousel className="text-center md:min-h-screen mx-auto" showArrows={true} infiniteLoop={true} autoPlay={true} dynamicHeight={true}>
-                        <div>
-                            <img className="md:h-[calc(100vh-150px)] h-auto w-full object-cover" src={data?.property_images[0]} />
-                        </div>
-                        <div>
-                            <img className="md:h-[calc(100vh-150px)] h-auto w-full object-cover" src={data?.property_images[1]} />
-                        </div>
-                        <div>
-                            <img className="md:h-[calc(100vh-150px)] h-auto w-full object-cover" src={data?.property_images[2]} />
-                        </div>
+                        {
+                            data?.property_images?.map((image, idx) => <div key={idx}>
+                                <img className="md:h-[calc(100vh-150px)] h-auto w-full object-cover" src={image} />
+                            </div>)
+                        }
+                        
                     </Carousel>
 
                     <div className="flex justify-between flex-wrap gap-5">

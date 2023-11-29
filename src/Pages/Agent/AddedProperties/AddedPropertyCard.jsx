@@ -2,7 +2,7 @@ import { LocationOn } from "@mui/icons-material";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hooks/useAuth";
@@ -17,6 +17,7 @@ const AddedPropertyCard = ({ data }) => {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth();
     const {refetch} = useAccessAgentProperties();
+    const navigate = useNavigate();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -37,6 +38,10 @@ const AddedPropertyCard = ({ data }) => {
                 toast.error(err.message);
             })
 
+    }
+
+    const handleNavigateUpdate = (id) => {
+        navigate(`/agent-dashboard/property-update/${id}`);
     }
 
     return (
@@ -69,11 +74,10 @@ const AddedPropertyCard = ({ data }) => {
             </div>
 
             <div className="p-6 flex justify-between gap-5 flex-wrap">
-                <Link to={`/agent-dashboard/property-update/${data._id}`}>  
-                    <Button variant="contained" size="small">Update</Button>
-                </Link>
+                
+                    <Button onClick={() => handleNavigateUpdate(data?._id)}  disabled={data?.verified === "rejected"} variant="contained" size="small">Update</Button>
                 <React.Fragment>
-                    <Button variant="contained" color="error" onClick={handleClickOpen}>
+                    <Button disabled={data?.verified === "rejected"} variant="contained" color="error" onClick={handleClickOpen}>
                         Remove
                     </Button>
                     <Dialog

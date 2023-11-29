@@ -30,6 +30,7 @@ import AdminManageProperties from "../Pages/Admin/AdminManageProperties/AdminMan
 import AdminManageUser from "../Pages/Admin/AdminManageUser/AdminManageUser";
 import ManageReview from "../Pages/Admin/ManageReview/ManageReview";
 import PaymentPage from "../Pages/User/UserBoughtProperty/PaymentPage";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 const MainRouter = createBrowserRouter([
     {
@@ -147,6 +148,10 @@ const MainRouter = createBrowserRouter([
     {
         path: "/register",
         element: <Register></Register>
+    },
+    {
+        path: "/*",
+        element: <ErrorPage></ErrorPage>
     }
 ])
 
