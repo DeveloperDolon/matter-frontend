@@ -27,19 +27,54 @@ const AgentSoldProperties = () => {
         }
     })
 
-    const rows = soldProperties?.map(item => createData(item.property_title, item.property_location, item.buyer_email, item.buyer_name, item.offered_price));
+    const rows = soldProperties?.soldProperties?.map(item => createData(item.property_title, item.property_location, item.buyer_email, item.buyer_name, item.offered_price));
 
 
     return (
         <div className="w-full md:px-10 px-5 md:py-10 py-5">
 
-            <div className="flex justify-between gap-10 flex-wrap">
-                <h1 className="title-text md:text-5xl text-3xl ">Sold Properties</h1>
-                <h1 className="title-text md:text-5xl text-3xl ">Total : {soldProperties?.length}</h1>
+            <div className="flex justify-center gap-10 flex-wrap pb-5">
+                <h1 className="title-text md:text-5xl text-3xl text-center">Sold Properties</h1>
+            </div>
+
+            <div className="flex justify-center flex-wrap gap-10 mt-5">
+                <div>
+                    <div className="relative overflow-hidden bg-white rounded-lg shadow w-60 md:w-72">
+                        <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/bangladesh-currency-7256174-5969106.png" alt="btc logo" className="absolute w-24 h-24 rounded-full opacity-50 -top-6 -right-6 md:-right-4" />
+                        <div className="px-4 py-5 sm:p-6">
+                            <dl>
+                                <dt className="text-sm font-medium leading-5 text-gray-500 truncate">
+                                    Total sold amouont
+                                </dt>
+                                <dd className="mt-1 text-3xl font-semibold leading-9 text-gray-900">
+                                    ৳ {soldProperties?.totalSoldAmount}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div className="py-5 bg-white shadow-lg rounded-2xl px-6 dark:bg-gray-800">
+                        <div className="flex items-center">
+                            <p className="text-gray-700 text-sm font-bold dark:text-gray-50">
+                                Total Sales
+                            </p>
+                        </div>
+                        <div className="flex flex-col justify-start">
+                            <p className=" my-1 text-4xl font-bold text-left text-gray-800 dark:text-white">
+                                {soldProperties?.soldProperties?.length}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             {
-                soldProperties?.length > 0 ?
+                soldProperties?.soldProperties?.length > 0 ?
 
                     <TableContainer component={Paper} className="mt-16 max-w-5xl mx-auto">
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
