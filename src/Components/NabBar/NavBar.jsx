@@ -22,7 +22,7 @@ import toast from 'react-hot-toast';
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { user, logOut, setUser, userRole } = useAuth();
+    const { user, logOut, setUser, userRole, setUserInfo, userInfo } = useAuth();
     const [dashboardLink, setDashboardLink] = React.useState("*");
 
     const handleOpenNavMenu = (event) => {
@@ -69,6 +69,7 @@ function ResponsiveAppBar() {
         } else {
             axiosPublic.get(`/user?email=${user?.email}`)
                 .then(res => {
+                    setUserInfo(res?.data);
                     if (res.data.role === "admin") {
                         setDashboardLink("/admin-dashboard/admin-profile");
                     } else if (res.data.role === "agent") {
@@ -233,7 +234,7 @@ function ResponsiveAppBar() {
                             <Tooltip title="Open settings">
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     {
-                                        user?.photoURL ? <Avatar alt="Remy Sharp" src={user?.photoURL ? user?.photoURL : defaultUser} /> :
+                                        userInfo?.image ? <Avatar alt="Remy Sharp" src={userInfo?.image ? userInfo?.image : defaultUser} /> :
                                             <img src={defaultUser} alt="" />
                                     }
                                 </IconButton>
@@ -257,7 +258,7 @@ function ResponsiveAppBar() {
                                 {user ?
                                     <div>
                                         <MenuItem key={"name"}>
-                                            <Typography textAlign="center">{user?.displayName}</Typography>
+                                            <Typography textAlign="center">{userInfo?.name}</Typography>
                                         </MenuItem>
                                         <MenuItem key={"logout"} onClick={handleLogOut}>
                                             <Typography textAlign="center">Logout</Typography>

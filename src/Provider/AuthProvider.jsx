@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [userRole, setUserRole] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState(null);
     const auth = getAuth(app);
 
     const googleProvider = new GoogleAuthProvider();
@@ -48,6 +49,7 @@ const AuthProvider = ({ children }) => {
                         console.log(res.data)
                         axiosPublic.get(`/user?email=${currentUser?.email}`)
                             .then(res => {
+                                setUserInfo(res?.data);
                                 if (res.data.role === "admin") {
                                     setUserRole("admin");
                                     setLoading(false);
@@ -85,7 +87,9 @@ const AuthProvider = ({ children }) => {
         googleLogin,
         logOut,
         setUser,
-        userRole
+        userRole,
+        userInfo,
+        setUserInfo
     }
 
     return (

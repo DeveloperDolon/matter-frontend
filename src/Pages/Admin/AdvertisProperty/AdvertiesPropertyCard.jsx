@@ -26,9 +26,15 @@ const AdvertisePropertyCard = ({ data, reload }) => {
         mutationFn: (condition) => {
             return axiosSecure.patch(`/admin-advertise-property/${data?._id}?email=${user?.email}`, {advertisement: condition});
         },
-        onSuccess: () => {
+        onSuccess: (res) => {
+            if(res?.data?.limitOver) {
+                return toast.error("Your advertisement limit is over!");
+            }
             reload();
             toast.success("Properties advertisement status updated!");
+        },
+        onError: (err) => {
+            toast.error(err?.message);
         }
     });
 

@@ -15,7 +15,7 @@ const AdvertisementProperty = () => {
         queryKey: ["verifiedProperties", user],
         queryFn: async () => {
 
-            const result = await axiosSecure.get(`/properties?email=${user?.email}`);
+            const result = await axiosSecure.get(`/advertised-properties`);
             const propertiesData = result.data;
 
             return propertiesData;
