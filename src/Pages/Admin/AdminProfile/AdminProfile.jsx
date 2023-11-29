@@ -16,6 +16,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { useState } from "react";
+import { updateProfile } from "firebase/auth";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -35,7 +36,7 @@ const AdminProfile = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { userRole, userInfo } = useAuth();
+    const { userRole, userInfo, user } = useAuth();
     const [userName, setUserName] = useState();
     const [userImage, setUserImage] = useState();
     const axiosSecure = useAxiosSecure();
@@ -58,32 +59,36 @@ const AdminProfile = () => {
     const handleUpdate = async (data) => {
         const updateProfileId = toast.loading("Updating profile...");
         let imageLink = userInfo?.image;
-        
+
         const name = data.name;
         const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_API_KEY;
         const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-        if(data.image.length > 0) {
-            const imageFile = {image: data?.image[0]};
+        if (data.image.length > 0) {
+            const imageFile = { image: data?.image[0] };
 
-            const res = await axios.post(image_hosting_api, imageFile,{
+            const res = await axios.post(image_hosting_api, imageFile, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             });
-    
+
             imageLink = res?.data?.data?.display_url;
         }
 
         // /update-profile/:id
+        updateProfile(user, {
+            displayName: name,
+            photoURL: imageLink
+        }).then(() => {
+            axiosSecure.patch(`/update-profile/${userInfo?._id}?email=${userInfo?.email}`, { name: name, image: imageLink })
+                .then(() => {
+                    setUserName(name)
+                    setUserImage(imageLink);
 
-        axiosSecure.patch(`/update-profile/${userInfo?._id}?email=${userInfo?.email}`, {name: name, image: imageLink})
-        .then(() => {
-            setUserName(name)
-            setUserImage(imageLink);
-            
-            toast.success("Profile updated!", {id: updateProfileId});
-        }).catch((err) => toast.error(err.message, {id: updateProfileId}))
+                    toast.success("Profile updated!", { id: updateProfileId });
+                }).catch((err) => toast.error(err.message, { id: updateProfileId }))
+        }).catch((err) => toast.error(err.message, { id: updateProfileId }))
 
         setOpen(false);
     }
@@ -112,7 +117,7 @@ const AdminProfile = () => {
                             <DialogTitle>Edit your Profile</DialogTitle>
                             <DialogContent className="space-y-5">
 
-                                <TextField id="filled-basic" {...register("name", {required: true})} label="Name" defaultValue={userName} variant="filled" /> <br />
+                                <TextField id="filled-basic" {...register("name", { required: true })} label="Name" defaultValue={userName} variant="filled" /> <br />
 
                                 {errors.name?.type === "required" ? (<p className="text-red-500 md:text-sm text-xs ">Name is required!</p>) : ""}
 
@@ -120,7 +125,7 @@ const AdminProfile = () => {
                                     <InputLabel>Change profile image</InputLabel>
                                     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
                                         Upload file
-                                        <VisuallyHiddenInput {...register("image", {required: false})}  type="file" />
+                                        <VisuallyHiddenInput {...register("image", { required: false })} type="file" />
                                     </Button>
                                 </div>
 
