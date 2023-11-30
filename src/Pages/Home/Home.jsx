@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet";
 import AdvertisementProperty from "../../Components/AdvertiseProperty/AdvertisementProperty";
 import Banner from "../../Components/Banner/Banner";
+import LatestUsersReviews from "../../Components/LatestUsersReviews/LatestUsersReviews";
 
 
 const HomePage = () => {
@@ -12,6 +13,8 @@ const HomePage = () => {
             <Banner></Banner>
 
             <AdvertisementProperty></AdvertisementProperty>
+
+            <LatestUsersReviews></LatestUsersReviews>
         </div>
     );
 };

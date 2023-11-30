@@ -235,7 +235,7 @@ function ResponsiveAppBar() {
                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                     {
                                         userInfo?.image ? <Avatar alt="Remy Sharp" src={userInfo?.image ? userInfo?.image : defaultUser} /> :
-                                            <img src={defaultUser} alt="" />
+                                            <img className='md:h-12 md:w-12 h-10 w-10 rounded-full object-cover ' src={defaultUser} alt="" />
                                     }
                                 </IconButton>
                             </Tooltip>
