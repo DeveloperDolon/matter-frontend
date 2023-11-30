@@ -22,7 +22,7 @@ const Banner = () => {
                 <Container maxWidth="lg" className="grid md:grid-cols-2 grid-cols-1 relative ">
                     <div className="w-full relative grid md:grid-cols-3 grid-cols-1">
                         <div className="md:col-span-2">
-                            <h1 className="z-50 relative title-text md:text-7xl sm:text-5xl text-3xl font-bold text-white">
+                            <h1 className="z-50 text-left relative title-text md:text-7xl sm:text-5xl text-3xl font-bold text-white">
                                 We build <br />
                                 <TypeAnimation
                                     sequence={[

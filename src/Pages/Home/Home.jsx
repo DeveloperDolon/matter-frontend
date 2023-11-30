@@ -7,6 +7,7 @@ import AnimationPage from "../../Components/AnimativeText/AnimationPage";
 
 const HomePage = () => {
 
+
     return (
         <div>
             <Helmet>
@@ -16,9 +17,9 @@ const HomePage = () => {
 
             <AdvertisementProperty></AdvertisementProperty>
 
-            <LatestUsersReviews></LatestUsersReviews>
-
             <AnimationPage></AnimationPage>
+
+            <LatestUsersReviews></LatestUsersReviews>
         </div>
     );
 };

@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import "./style.css"
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import AnimativeText from "../AnimativeText/AnimativeText";
 
 
 const LatestUsersReviews = () => {
@@ -24,7 +25,7 @@ const LatestUsersReviews = () => {
     return (
         <Container maxWidth="lg" className="mx-auto md:my-32 my-24">
 
-            <h1 className="text-center md:text-6xl text-4xl md:mb-20 mb-16 font-bold">Latest User Review</h1>
+            <AnimativeText firstText={"Latest User Reviews"} className={"md:text-6xl text-3xl mb-16"} sectoundText={"What our client says?"}></AnimativeText>
 
             <Swiper
                 spaceBetween={30}
