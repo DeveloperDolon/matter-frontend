@@ -1,10 +1,12 @@
 import { Helmet } from "react-helmet";
 import AdvertisementProperty from "../../Components/AdvertiseProperty/AdvertisementProperty";
-import Banner from "../../Components/Banner/Banner";
 import LatestUsersReviews from "../../Components/LatestUsersReviews/LatestUsersReviews";
+import Banner from "../../Components/Banner/Banner";
+import AnimationPage from "../../Components/AnimativeText/AnimationPage";
 
 
 const HomePage = () => {
+
     return (
         <div>
             <Helmet>
@@ -15,6 +17,8 @@ const HomePage = () => {
             <AdvertisementProperty></AdvertisementProperty>
 
             <LatestUsersReviews></LatestUsersReviews>
+
+            <AnimationPage></AnimationPage>
         </div>
     );
 };
