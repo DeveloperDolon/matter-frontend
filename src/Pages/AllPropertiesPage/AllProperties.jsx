@@ -90,7 +90,7 @@ const AllProperties = () => {
 
             <div className="md:mt-14 mt-10 grid md:grid-cols-2 grid-cols-1 gap-10">
                 {
-                    data?.map(item => <PropertyCard key={item._id} data={item}></PropertyCard>)
+                    data?.map(item => <PropertyCard key={item._id} data={item} condi={true}></PropertyCard>)
                 }
             </div>
         </Container>

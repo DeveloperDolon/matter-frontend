@@ -34,7 +34,7 @@ const AdvertisementProperty = () => {
 
     return (
     <>
-      <Container maxWidth="lg" className="mx-auto md:my-32 my-24">
+      <Container maxWidth="xl" className="mx-auto md:my-32 my-24">
       <AnimativeText firstText={"Advertisement Properties"} className={"md:text-6xl text-4xl"} sectoundText={"Our Advertisements"}></AnimativeText>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-10 mt-20">
                 {

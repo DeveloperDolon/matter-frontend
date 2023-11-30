@@ -3,6 +3,8 @@ import AdvertisementProperty from "../../Components/AdvertiseProperty/Advertisem
 import LatestUsersReviews from "../../Components/LatestUsersReviews/LatestUsersReviews";
 import Banner from "../../Components/Banner/Banner";
 import AnimationPage from "../../Components/AnimativeText/AnimationPage";
+import Aboutus from "../../Components/Aboutus/Aboutus";
+import Clients from "../../Components/Clients/Clients";
 
 
 const HomePage = () => {
@@ -18,6 +20,10 @@ const HomePage = () => {
             <AdvertisementProperty></AdvertisementProperty>
 
             <AnimationPage></AnimationPage>
+
+            <Aboutus></Aboutus>
+
+            <Clients></Clients>
 
             <LatestUsersReviews></LatestUsersReviews>
         </div>
