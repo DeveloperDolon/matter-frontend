@@ -38,7 +38,7 @@ const UserProfile = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { userRole, userInfo, user } = useAuth();
+    const { userRole, userInfo, user, setUserInfo } = useAuth();
     const [userName, setUserName] = useState();
     const [userImage, setUserImage] = useState();
     const axiosSecure = useAxiosSecure();
@@ -87,7 +87,9 @@ const UserProfile = () => {
                 .then(() => {
                     setUserName(name)
                     setUserImage(imageLink);
-
+                    userInfo.name = name;
+                    userInfo.image = imageLink;
+                    setUserInfo(userInfo);
                     toast.success("Profile updated!", { id: updateProfileId });
                 }).catch((err) => toast.error(err.message, { id: updateProfileId }))
         }).catch((err) => toast.error(err.message, { id: updateProfileId }))
@@ -95,6 +97,7 @@ const UserProfile = () => {
         setOpen(false);
     }
 
+    console.log(userInfo)
 
     return (
         <div className=" max-h-screen w-full md:px-10 px-5 md:py-16 py-5">

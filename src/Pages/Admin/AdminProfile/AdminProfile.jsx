@@ -36,7 +36,7 @@ const AdminProfile = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { userRole, userInfo, user } = useAuth();
+    const { userRole, userInfo, user, setUserInfo } = useAuth();
     const [userName, setUserName] = useState();
     const [userImage, setUserImage] = useState();
     const axiosSecure = useAxiosSecure();
@@ -85,7 +85,9 @@ const AdminProfile = () => {
                 .then(() => {
                     setUserName(name)
                     setUserImage(imageLink);
-
+                    userInfo.name = name;
+                    userInfo.image = imageLink;
+                    setUserInfo(userInfo);
                     toast.success("Profile updated!", { id: updateProfileId });
                 }).catch((err) => toast.error(err.message, { id: updateProfileId }))
         }).catch((err) => toast.error(err.message, { id: updateProfileId }))
