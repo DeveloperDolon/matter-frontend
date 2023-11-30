@@ -1,6 +1,12 @@
 import {  Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import "./style.css"
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 
 const LatestUsersReviews = () => {
@@ -14,10 +20,44 @@ const LatestUsersReviews = () => {
             return res.data;
         }
     })
-    console.log(data);
+    
     return (
         <Container maxWidth="lg" className="mx-auto md:my-32 my-24">
-            
+
+            <h1 className="text-center md:text-6xl text-4xl md:mb-20 mb-16 font-bold">Latest User Review</h1>
+
+            <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                }}
+                pagination={{
+                    clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper"
+            >
+                {
+                    data?.map(item => <SwiperSlide key={item._id}>
+                        <div>
+                            <div className="flex justify-center flex-col items-center">
+                                <img className="md:h-20 md:w-20 h-16 w-16 rounded-full object-cover" src={item.reviewer_image} alt="" />
+                                <h1 className="mt-5 title-text md:text-2xl text-lg font-semibold">{item.reviewer_name}</h1>
+                                <p>{item.review_date}</p>
+                            </div>
+
+                            <div className="flex justify-center items-center flex-col text-center">
+                                <p className="mt-3 italic md:text-base text-sm font-medium">{item.review_description}</p>
+
+                                <h5 className="md:text-lg text-base font-medium mt-4">Property : {item.property_title}</h5>
+                            </div>
+                        </div>
+                    </SwiperSlide>)
+                }
+            </Swiper>
         </Container>
     );
 };
