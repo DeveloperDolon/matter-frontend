@@ -1,5 +1,5 @@
 # live Link : https://real-estate-project-1497b.web.app/
-
+**Technologies :** React js, Tailwind css, Material UI, Firebase, JWT, Node js, Stripe js, Express js, and Mongoose.
 # Five Features Of This Web Site
 
 **1. User-friendly Dashboard:**
