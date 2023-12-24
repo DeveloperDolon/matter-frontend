@@ -9,7 +9,7 @@ const AdvertiseProperty = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data, refetch } = useQuery({
+    const { data = [], refetch } = useQuery({
         queryKey: ["verified-properties"],
         queryFn: async () => {
             const res = await axiosSecure.get(`/properties?email=${user?.email}`);
@@ -20,9 +20,8 @@ const AdvertiseProperty = () => {
     return (
         <div className="md:pt-10 pt-7 md:px-10 sm:px-5 px-3">
             <h1 className="md:text-5xl text-3xl font-semibold title-text ">Advertise Properties</h1>
-
             {
-                data?.length > 0 ?
+                data && data?.length > 0 ?
                     <div className="grid 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7 md:mt-16 mt-10">
                         {
                             data?.map(item => <AdvertisePropertyCard key={item._id} data={item} reload={refetch}></AdvertisePropertyCard>)

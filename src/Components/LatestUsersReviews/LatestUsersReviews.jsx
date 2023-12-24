@@ -21,6 +21,7 @@ const LatestUsersReviews = () => {
             return res.data;
         }
     })
+    console.log(data, "reviews")
     
     return (
         <Container maxWidth="lg" className="mx-auto md:my-32 my-24">

@@ -50,7 +50,7 @@ const MainRouter = createBrowserRouter([
                 path: "/properties/:id",
                 loader: ({params}) => {
                     const userEmail = localStorage.getItem('userEmail');
-                    return fetch(`https://matter-backend-server.vercel.app/properties/${params.id}?email=${userEmail}`)
+                    return fetch(`http://localhost:5000/properties/${params.id}?email=${userEmail}`)
                 },
                 element: <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>
             },
@@ -102,7 +102,7 @@ const MainRouter = createBrowserRouter([
                 path: "/agent-dashboard/property-update/:id",
                 loader: ({params}) => {
                     const userEmail = localStorage.getItem('userEmail');
-                    return fetch(`https://matter-backend-server.vercel.app/properties/${params.id}?email=${userEmail}`)
+                    return fetch(`http://localhost:5000/properties/${params.id}?email=${userEmail}`)
                 },
                 element: <AgentRoute><UpdateProperty></UpdateProperty></AgentRoute>
             },
